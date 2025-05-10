@@ -1,0 +1,163 @@
+<!-- <style>
+    .modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .modal-content {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        text-align: center;
+    }
+    .icono-exito {
+        font-size: 50px;
+        margin-bottom: 10px;
+    }
+    .close {
+        cursor: pointer;
+        position: absolute;
+        right: 10px;
+        top: 10px;
+        font-size: 20px;
+    }
+    #btnAceptar {
+        padding: 10px 20px;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+</style>
+ -->
+
+<!-- MODAL PARA DIRECCIÓN -->
+<!-- ✅ Modal de confirmación -->
+<div class="modal fade" id="modalExito" tabindex="-1" aria-labelledby="modalExitoLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalExitoLabel">Éxito</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+            </div>
+            <div class="modal-body text-center">
+                <div class="mb-3">
+                    <span class="text-success fs-1">✅</span>
+                </div>
+                <p>¡Cliente agregado correctamente!</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" id="btnAceptar" onclick="redirigir()">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-fullscreen-md-down">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Añadir dirección predeterminada</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control direction" id="direccionInput" placeholder="Dirección">
+                    <label for="direccionInput">Dirección</label>
+                </div>
+                <div class="form-row mb-3">
+                    <div class="form-floating col-md-6">
+                        <input type="text" class="form-control ciudad" id="ciudadInput" placeholder="Ciudad">
+                        <label for="ciudadInput">Ciudad</label>
+                    </div>
+                    <div class="form-floating col-md-6">
+                        <input type="text" class="form-control" id="regionInput" placeholder="Buscar región...">
+                        <label for="regionInput">Región</label>
+                        <div id="regionList" class="list-group mt-1"></div>
+                    </div>
+                </div>
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control postal" id="postalInput" placeholder="Código postal">
+                    <label for="postalInput">Código postal</label>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary col-md-12" id="addDirection">Agregar dirección</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="col-md-12  align-items-center  mb-3">
+    <div class="card p-4">
+        <p class="card-description">
+            Resumen del cliente
+        </p>
+        <form>
+            <div class="form-row mb-3">
+                <div class="form-floating col-md-6">
+                    <input type="text" class="form-control nombre" id="floatingInput" placeholder="name@example.com">
+                    <label for="floatingInput">Nombre</label>
+                </div>
+                <div class="form-floating col-md-6">
+                    <input type="text" class="form-control apellido apellido" id="floatingInput" placeholder="name@example.com">
+                    <label for="floatingInput">Apellido</label>
+                </div>
+            </div>
+            <div class="form-row mb-3">
+                <div class="form-floating col-md-6">
+                    <input type="text" class="form-control rucDni" id="floatingInput" placeholder="apartamento">
+                    <label for="floatingInput">Ruc / DNI</label>
+                </div>
+                <div class="form-floating col-md-6">
+                    <input type="text" class="form-control telefono" id="floatingInput" placeholder="name@example.com">
+                    <label for="floatingInput">Numero telefónico</label>
+                </div>
+            </div>
+            <div class="form-floating mb-3">
+                <input type="email" class="form-control email" id="floatingInput" placeholder="name@example.com">
+                <label for="floatingInput">Enviar un correo electrónico</label>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="col-md-12 align-items-center mb-3">
+    <div class="card p-4">
+        <h4 class="card-title">Dirección predeterminada</h4>
+        <p class="card-description">
+            La dirección principal de este cliente
+        </p>
+        <button type="button" class="btn btn-secondary btn-lg btn-light" data-bs-toggle="modal"
+            data-bs-target="#exampleModal" style="border-color: #027699;">Agregar dirección</button>
+
+        
+        <!-- Contenedor de direcciones -->
+        <div class="direccion-predeterminada mt-3"></div>
+
+
+    </div>
+</div>
+
+<div id="errorAlert" class="alert alert-danger d-none" role="alert"></div>
+
+<button type="button" class="btn btn-secondary btn-lg btn-success col-md-12  align-items-center" id="btnCrearCliente">Crear Cliente</button>
+
+
+<!-- ✅ Modal de confirmación -->
+<div id="modalExito" class="modal" style="display: none;">
+    <div class="modal-content">
+        <span class="close" onclick="cerrarModal()">&times;</span>
+        <div class="icono-exito">✅</div>
+        <h2>¡Cliente agregado correctamente!</h2>
+        <button id="btnAceptar" onclick="redirigir()">OK</button>
+    </div>
+</div>
+

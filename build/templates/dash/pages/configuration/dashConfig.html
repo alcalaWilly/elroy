@@ -1,0 +1,472 @@
+
+<!-- Modal SEASON-->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">AGREGAR SEASON</h1>
+                <button type="button" id="btnClose-season" class="btn-close" ></button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Ingresa la Temporada:</label>
+                    <input type="text" class="form-control form-control-lg season-name" placeholder="Season" aria-label="Username">
+                </div>
+                <div class="form-group">
+                    <label for="descripcion">Ingresa la Descripción:</label>
+                    <textarea id="descripcion" class="form-control form-control-lg season-description" placeholder="Escribe aquí..." rows="5"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" id="add-season">Agregar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal SEASON UPDATE-->
+<div class="modal fade" id="exampleModalUpdate" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">UPDATE SEASON</h1>
+                <button type="button" id="btnClose-season" class="btn-close" ></button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Ingresa la Temporada:</label>
+                    <input type="text" class="form-control form-control-lg season-nameUpdate" placeholder="Season" aria-label="Username">
+                </div>
+                <div class="form-group">
+                    <label for="descripcion">Ingresa la Descripción:</label>
+                    <textarea id="descripcion" class="form-control form-control-lg season-descriptionUpdate" placeholder="Escribe aquí..." rows="5"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" id="add-season">Agregar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal CATEGORY-->
+<div class="modal fade" id="modalCategory" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">AGREGAR CATEGORY</h1>
+                <button type="button" id="btnClose-category" class="btn-close" ></button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Ingresa la Categoría:</label>
+                    <input type="text" class="form-control form-control-lg category-name" placeholder="Category" aria-label="Username">
+                </div>
+                <div class="form-group">
+                    <label for="descripcion">Ingresa la Descripción:</label>
+                    <textarea id="descripcion" class="form-control form-control-lg category-description" placeholder="Escribe aquí..." rows="5"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" id="add-category">Agregar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal CATEGORY UPDATE-->
+<div class="modal fade" id="modalCategoryUpdate" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">UPDATE CATEGORY</h1>
+                <button type="button" id="btnClose-category" class="btn-close" ></button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Ingresa la Categoría:</label>
+                    <input type="text" class="form-control form-control-lg category-nameUpdate" placeholder="Category" aria-label="Username">
+                </div>
+                <div class="form-group">
+                    <label for="descripcion">Ingresa la Descripción:</label>
+                    <textarea id="descripcion" class="form-control form-control-lg category-descriptionUpdate" placeholder="Escribe aquí..." rows="5"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" id="add-category">Agregar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal TALLA-->
+<div class="modal fade" id="modalSize" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">AGREGAR TALLA</h1>
+                <button type="button" id="btnClose-size" class="btn-close" ></button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Ingresar Talla:</label>
+                    <input type="text" class="form-control form-control-lg size-name" placeholder="Talla" aria-label="Username">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" id="add-size">Agregar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal TALLA UPDATE-->
+<div class="modal fade" id="modalSizeUpdate" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">UPDATE TALLA</h1>
+                <button type="button" id="btnClose-size" class="btn-close" ></button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Ingresar Talla:</label>
+                    <input type="text" class="form-control form-control-lg size-nameUpdate" placeholder="Talla" aria-label="Username">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" id="update-size">Agregar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal SHIPPING-->
+<div class="modal fade" id="modalShipping" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">AGREGAR ENVÍO</h1>
+                <button type="button" id="btnClose-Shipping" class="btn-close" ></button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Ingresa Envío</label>
+                    <input type="text" class="form-control form-control-lg" id="nameShipping" placeholder="Ingresa Envío" aria-label="Username">
+                </div>
+                <div class="form-group">
+                    <label for="descripcion">Tiempo estimado</label>
+                    <input type="text" id="tiempoShipping" class="form-control form-control-lg category-description" placeholder="Escribe aquí...">
+                    
+                </div>
+                <div class="form-group">
+                    <label for="descripcion">Precio</label>
+                    <input type="text" id="precioShipping" class="form-control form-control-lg category-description"  placeholder="0.00">
+                    
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" id="add-shipping">Agregar envío</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--UPDATE Modal SHIPPING-->
+<div class="modal fade" id="modalShippingUpdate" tabindex="-1" aria-labelledby="shippingModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="shippingModalLabel">AGREGAR ENVÍO</h1>
+                <button type="button" id="btnClose-ShippingUpdate" class="btn-close" ></button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Ingresa Envío</label>
+                    <input type="text" class="form-control form-control-lg" id="nameShippingUpdate" placeholder="Ingresa Envío" aria-label="Username">
+                </div>
+                <div class="form-group">
+                    <label for="descripcion">Tiempo estimado</label>
+                    <input type="text" id="tiempoShippingUpdate" class="form-control form-control-lg category-description" placeholder="Escribe aquí...">
+                    
+                </div>
+                <div class="form-group">
+                    <label for="descripcion">Precio</label>
+                    <input type="text" id="precioShippingUpdate" class="form-control form-control-lg category-description" placeholder="0.00">
+                    
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" id="Update-shipping">Actualizar envío</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-lg-6 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-lg-12 d-flex justify-content-between align-items-center">
+                        <h4 class="card-title">TABLE SEASONS</h4>
+                        <button type="button" class="btn btn-success btn-rounded btn-icon" id="openModalBtn">
+                            <i class="typcn typcn-plus"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-hover season-orders-table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Season</th>
+                                <th>Description</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="season-table-body">
+                            <!-- <tr>
+                                <td>Jacob</td>
+                                <td>Photoshop</td>
+                                <td class="text-danger"> 28.76% <i class="typcn typcn-arrow-down-thick"></i></td>
+                                <td><button type="button" class="btn btn-info btn-sm btn-icon-text mr-3">
+                                    Edit
+                                    <i class="typcn typcn-edit btn-icon-append"></i>
+                                </button></td>
+                            </tr>
+                            <tr>
+                                <td>Jacob</td>
+                                <td>Photoshop</td>
+                                <td class="text-danger"> 28.76% <i class="typcn typcn-arrow-down-thick"></i></td>
+                                <td><button type="button" class="btn btn-info btn-sm btn-icon-text mr-3">
+                                    Edit
+                                    <i class="typcn typcn-edit btn-icon-append"></i>
+                                </button></td>
+                            </tr>
+                            <tr>
+                                <td>Jacob</td>
+                                <td>Photoshop</td>
+                                <td class="text-danger"> 28.76% <i class="typcn typcn-arrow-down-thick"></i></td>
+                                <td><button type="button" class="btn btn-info btn-sm btn-icon-text mr-3">
+                                    Edit
+                                    <i class="typcn typcn-edit btn-icon-append"></i>
+                                </button></td>
+                            </tr>
+                            <tr>
+                                <td>Jacob</td>
+                                <td>Photoshop</td>
+                                <td class="text-danger"> 28.76% <i class="typcn typcn-arrow-down-thick"></i></td>
+                                <td><button type="button" class="btn btn-info btn-sm btn-icon-text mr-3">
+                                    Edit
+                                    <i class="typcn typcn-edit btn-icon-append"></i>
+                                </button></td>
+                            </tr>
+                            <tr>
+                                <td>Jacob</td>
+                                <td>Photoshop</td>
+                                <td class="text-danger"> 28.76% <i class="typcn typcn-arrow-down-thick"></i></td>
+                                <td><button type="button" class="btn btn-info btn-sm btn-icon-text mr-3">
+                                    Edit
+                                    <i class="typcn typcn-edit btn-icon-append"></i>
+                                </button></td>
+                            </tr>
+                             -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-lg-12 d-flex justify-content-between align-items-center">
+                        <h4 class="card-title">TABLE CATEGORIES</h4>
+                        <button type="button" class="btn btn-success btn-rounded btn-icon" id="btn-category">
+                            <i class="typcn typcn-plus"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-hover category-orders-table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Category</th>
+                                <th>Description</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="category-table-body">
+                            <!-- <tr>
+                                <td>Jacob</td>
+                                <td>Photoshop</td>
+                                <td class="text-danger"> 28.76% <i class="typcn typcn-arrow-down-thick"></i></td>
+                                <td><button type="button" class="btn btn-info btn-sm btn-icon-text mr-3">
+                                        Edit
+                                        <i class="typcn typcn-edit btn-icon-append"></i>
+                                    </button></td>
+                            </tr>
+                            <tr>
+                                <td>Jacob</td>
+                                <td>Photoshop</td>
+                                <td class="text-danger"> 28.76% <i class="typcn typcn-arrow-down-thick"></i></td>
+                                <td><button type="button" class="btn btn-info btn-sm btn-icon-text mr-3">
+                                        Edit
+                                        <i class="typcn typcn-edit btn-icon-append"></i>
+                                    </button></td>
+                            </tr>
+                            <tr>
+                                <td>Jacob</td>
+                                <td>Photoshop</td>
+                                <td class="text-danger"> 28.76% <i class="typcn typcn-arrow-down-thick"></i></td>
+                                <td><button type="button" class="btn btn-info btn-sm btn-icon-text mr-3">
+                                        Edit
+                                        <i class="typcn typcn-edit btn-icon-append"></i>
+                                    </button></td>
+                            </tr>
+                            <tr>
+                                <td>Jacob</td>
+                                <td>Photoshop</td>
+                                <td class="text-danger"> 28.76% <i class="typcn typcn-arrow-down-thick"></i></td>
+                                <td><button type="button" class="btn btn-info btn-sm btn-icon-text mr-3">
+                                        Edit
+                                        <i class="typcn typcn-edit btn-icon-append"></i>
+                                    </button></td>
+                            </tr>
+                            <tr>
+                                <td>Jacob</td>
+                                <td>Photoshop</td>
+                                <td class="text-danger"> 28.76% <i class="typcn typcn-arrow-down-thick"></i></td>
+                                <td><button type="button" class="btn btn-info btn-sm btn-icon-text mr-3">
+                                        Edit
+                                        <i class="typcn typcn-edit btn-icon-append"></i>
+                                    </button></td>
+                            </tr> -->
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-lg-12 d-flex justify-content-between align-items-center">
+                        <h4 class="card-title">TABLE SIZES</h4>
+                        <button type="button" class="btn btn-success btn-rounded btn-icon" id="btn-size">
+                            <i class="typcn typcn-plus"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-hover size-orders-table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Name Size</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="size-table-body">
+                            <!-- <tr>
+                                <td>Jacob</td>
+                                <td>Photoshop</td>
+                                <td class="text-danger"> 28.76% <i class="typcn typcn-arrow-down-thick"></i></td>
+                                <td><button type="button" class="btn btn-info btn-sm btn-icon-text mr-3">
+                                        Edit
+                                        <i class="typcn typcn-edit btn-icon-append"></i>
+                                    </button></td>
+                            </tr>
+                            <tr>
+                                <td>Jacob</td>
+                                <td>Photoshop</td>
+                                <td class="text-danger"> 28.76% <i class="typcn typcn-arrow-down-thick"></i></td>
+                                <td><button type="button" class="btn btn-info btn-sm btn-icon-text mr-3">
+                                        Edit
+                                        <i class="typcn typcn-edit btn-icon-append"></i>
+                                    </button></td>
+                            </tr>
+                            <tr>
+                                <td>Jacob</td>
+                                <td>Photoshop</td>
+                                <td class="text-danger"> 28.76% <i class="typcn typcn-arrow-down-thick"></i></td>
+                                <td><button type="button" class="btn btn-info btn-sm btn-icon-text mr-3">
+                                        Edit
+                                        <i class="typcn typcn-edit btn-icon-append"></i>
+                                    </button></td>
+                            </tr>
+                            <tr>
+                                <td>Jacob</td>
+                                <td>Photoshop</td>
+                                <td class="text-danger"> 28.76% <i class="typcn typcn-arrow-down-thick"></i></td>
+                                <td><button type="button" class="btn btn-info btn-sm btn-icon-text mr-3">
+                                        Edit
+                                        <i class="typcn typcn-edit btn-icon-append"></i>
+                                    </button></td>
+                            </tr>
+                            <tr>
+                                <td>Jacob</td>
+                                <td>Photoshop</td>
+                                <td class="text-danger"> 28.76% <i class="typcn typcn-arrow-down-thick"></i></td>
+                                <td><button type="button" class="btn btn-info btn-sm btn-icon-text mr-3">
+                                        Edit
+                                        <i class="typcn typcn-edit btn-icon-append"></i>
+                                    </button></td>
+                            </tr> -->
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-lg-12 d-flex justify-content-between align-items-center">
+                        <h4 class="card-title">TABLE SHIPPIN</h4>
+                        <button type="button" class="btn btn-success btn-rounded btn-icon" id="btn-shipping">
+                            <i class="typcn typcn-plus"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-hover shipping-orders-table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Envío</th>
+                                <th>Tiempo estiamdo</th>
+                                <th>Precio</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="table-shipping">
+                            <!-- <tr>
+                                <td>1</td>
+                                <td>Envío Rápido</td>
+                                <td> 2-3 días</td>
+                                <td> 15.50</td>
+                                <td>
+                                    <button type="button" class="btn btn-info btn-sm btn-icon-text mr-3">
+                                        Edit
+                                        <i class="typcn typcn-edit btn-icon-append"></i>
+                                    </button>
+                                </td>
+                            </tr> -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

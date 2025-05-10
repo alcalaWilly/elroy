@@ -1,0 +1,508 @@
+<!-- Modal -->
+<div class="modal fade" id="bannerModal" tabindex="-1" role="dialog" aria-labelledby="bannerModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Agregar/Editar Banner</h5>
+                <button type="button" id="btn-closeBanner" class="btn-close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="encabezado">Encabezado de la Página inicio</label>
+                    <input type="text" class="form-control" id="encabezado" placeholder="Nombre">
+                </div>
+
+                <!-- Imagen del Banner -->
+                <div class="form-group">
+                    <label for="bannerImage">Imagen del Banner</label>
+                    <input type="file" class="form-control-file" id="bannerImage" accept="image/*"
+                        onchange="previewImage(event, 'bannerPreview')">
+                    <img id="bannerPreview" src="" alt="Vista previa del banner" class="img-fluid mt-2 d-none">
+                </div>
+
+                <!-- Segunda Imagen -->
+                <div class="form-group">
+                    <label for="extraImage">Imagen Adicional</label>
+                    <input type="file" class="form-control-file" id="extraImage" accept="image/*"
+                        onchange="previewImage(event, 'extraPreview')">
+                    <img id="extraPreview" src="" alt="Vista previa de la imagen" class="img-fluid mt-2 d-none">
+                </div>
+
+                <button type="button" class="btn btn-primary" id="add-banner">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal para las imágenes de categoria -->
+<div class="modal fade" id="bannerModalCategory" tabindex="-1" role="dialog" aria-labelledby="bannerModalCategoryLabel"
+aria-hidden="true">
+<div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title">Imagen para categorias</h5>
+            <button type="button" id="btn-closeBannerCategory" class="btn-close"></button>
+        </div>
+        <div class="modal-body">
+            <!-- Cards con Select + Input tipo archivo -->
+            <div class="row">
+                <!-- Card 1 -->
+                <div class="col-md-4 mb-3">
+                    <div class="card p-3">
+                        <div class="d-flex flex-column">
+                            <select class="form-select mb-2 category-select">
+                                <option selected disabled>Seleccione</option>
+                            </select>
+                            <label>Imagen para <span class="categorySelected">Seleccionar</span></label>
+                            <input type="file" class="form-control-file category-image" accept="image/*">
+                            <img src="" alt="Vista previa del banner" class="img-fluid mt-2 preview-image d-none">
+                        </div>
+                    </div>
+                </div>
+                
+        
+                <!-- Card 2 -->
+                <div class="col-md-4 mb-3">
+                    <div class="card p-3">
+                        <div class="d-flex flex-column">
+                            <select class="form-select mb-2 category-select">
+                                <option selected disabled>Seleccione</option>
+                            </select>
+                            <label>Imagen para <span class="categorySelected">Seleccionar</span></label>
+                            <input type="file" class="form-control-file category-image" accept="image/*">
+                            <img src="" alt="Vista previa del banner" class="img-fluid mt-2 preview-image d-none">
+                        </div>
+                    </div>
+                </div>
+                
+        
+                <!-- Card 3 -->
+                <div class="col-md-4 mb-3">
+                    <div class="card p-3">
+                        <div class="d-flex flex-column">
+                            <select class="form-select mb-2 category-select">
+                                <option selected disabled>Seleccione</option>
+                            </select>
+                            <label>Imagen para <span class="categorySelected">Seleccionar</span></label>
+                            <input type="file" class="form-control-file category-image" accept="image/*">
+                            <img src="" alt="Vista previa del banner" class="img-fluid mt-2 preview-image d-none">
+                        </div>
+                    </div>
+                </div>
+                
+        
+                <!-- Card 4 -->
+                <div class="col-md-4 mb-3">
+                    <div class="card p-3">
+                        <div class="d-flex flex-column">
+                            <select class="form-select mb-2 category-select">
+                                <option selected disabled>Seleccione</option>
+                            </select>
+                            <label>Imagen para <span class="categorySelected">Seleccionar</span></label>
+                            <input type="file" class="form-control-file category-image" accept="image/*">
+                            <img src="" alt="Vista previa del banner" class="img-fluid mt-2 preview-image d-none">
+                        </div>
+                    </div>
+                </div>
+                
+        
+                <!-- Card 5 -->
+                <div class="col-md-4 mb-3">
+                    <div class="card p-3">
+                        <div class="d-flex flex-column">
+                            <select class="form-select mb-2 category-select">
+                                <option selected disabled>Seleccione</option>
+                            </select>
+                            <label>Imagen para <span class="categorySelected">Seleccionar</span></label>
+                            <input type="file" class="form-control-file category-image" accept="image/*">
+                            <img src="" alt="Vista previa del banner" class="img-fluid mt-2 preview-image d-none">
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        
+            <button type="button" class="btn btn-primary" id="add-categoryImage">Agregar</button>
+        </div>
+    </div>
+</div>
+</div>
+
+<!-- Modal para las imágenes de categoria ACTUALIZAR -->
+<div class="modal fade" id="bannerModalCategoryUpdate" tabindex="-1" role="dialog" aria-labelledby="bannerModalCategoryUpdateLabel"
+aria-hidden="true">
+<div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title">Imagen para categorias-ACTUALIZAR</h5>
+            <button type="button" id="btn-closeBannerCategoryUpdate" class="btn-close"></button>
+        </div>
+        <div class="modal-body">
+            <!-- Cards con Select + Input tipo archivo -->
+            <div class="row">
+                <!-- Card 1 -->
+                <div class="col-md-4 mb-3">
+                    <div class="card p-3">
+                        <div class="d-flex flex-column">
+                            <select class="form-select mb-2 category-selectUpdate">
+                                <option selected disabled>Seleccione</option>
+                            </select>
+                            <label>Imagen para <span class="categorySelectedUpdate">Seleccionar</span></label>
+                            <input type="file" class="form-control-file category-imageUpdate" accept="image/*">
+                            <img src="" alt="Vista previa del banner" class="img-fluid mt-2 preview-image d-none">
+                        </div>
+                    </div>
+                </div>
+                
+        
+                <!-- Card 2 -->
+                <div class="col-md-4 mb-3">
+                    <div class="card p-3">
+                        <div class="d-flex flex-column">
+                            <select class="form-select mb-2 category-selectUpdate">
+                                <option selected disabled>Seleccione</option>
+                            </select>
+                            <label>Imagen para <span class="categorySelectedUpdate">Seleccionar</span></label>
+                            <input type="file" class="form-control-file category-imageUpdate" accept="image/*">
+                            <img src="" alt="Vista previa del banner" class="img-fluid mt-2 preview-image d-none">
+                        </div>
+                    </div>
+                </div>
+                
+        
+                <!-- Card 3 -->
+                <div class="col-md-4 mb-3">
+                    <div class="card p-3">
+                        <div class="d-flex flex-column">
+                            <select class="form-select mb-2 category-selectUpdate">
+                                <option selected disabled>Seleccione</option>
+                            </select>
+                            <label>Imagen para <span class="categorySelectedUpdate">Seleccionar</span></label>
+                            <input type="file" class="form-control-file category-imageUpdate" accept="image/*">
+                            <img src="" alt="Vista previa del banner" class="img-fluid mt-2 preview-image d-none">
+                        </div>
+                    </div>
+                </div>
+                
+        
+                <!-- Card 4 -->
+                <div class="col-md-4 mb-3">
+                    <div class="card p-3">
+                        <div class="d-flex flex-column">
+                            <select class="form-select mb-2 category-selectUpdate">
+                                <option selected disabled>Seleccione</option>
+                            </select>
+                            <label>Imagen para <span class="categorySelectedUpdate">Seleccionar</span></label>
+                            <input type="file" class="form-control-file category-imageUpdate" accept="image/*">
+                            <img src="" alt="Vista previa del banner" class="img-fluid mt-2 preview-image d-none">
+                        </div>
+                    </div>
+                </div>
+                
+        
+                <!-- Card 5 -->
+                <div class="col-md-4 mb-3">
+                    <div class="card p-3">
+                        <div class="d-flex flex-column">
+                            <select class="form-select mb-2 category-selectUpdate">
+                                <option selected disabled>Seleccione</option>
+                            </select>
+                            <label>Imagen para <span class="categorySelectedUpdate">Seleccionar</span></label>
+                            <input type="file" class="form-control-file category-imageUpdate" accept="image/*">
+                            <img src="" alt="Vista previa del banner" class="img-fluid mt-2 preview-image d-none">
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        
+            <button type="button" class="btn btn-primary" id="update-categoryImage">Agregar</button>
+        </div>
+    </div>
+</div>
+</div>
+
+
+<!-- Modal EDITAR -->
+<div class="modal fade" id="bannerModalUpdate" tabindex="-1" role="dialog" aria-labelledby="bannerModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Editar Banner</h5>
+                <button type="button" id="btn-closeUpdate" class="btn-close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="encabezado">Encabezado de la Página inicio</label>
+                    <input type="text" class="form-control" id="encabezadoUpdate" placeholder="Nombre">
+                </div>
+
+                <!-- Imagen del Banner -->
+                <div class="form-group">
+                    <label for="bannerImage">Imagen del Banner</label>
+                    <input type="file" class="form-control-file" id="bannerImageUpdate" accept="image/*"
+                        onchange="previewImage(event, 'bannerPreview')">
+                    <img id="bannerPreview" src="" alt="Vista previa del banner" class="img-fluid mt-2 d-none">
+                </div>
+
+                <!-- Segunda Imagen -->
+                <div class="form-group">
+                    <label for="extraImage">Imagen Adicional</label>
+                    <input type="file" class="form-control-file" id="extraImageUpdate" accept="image/*"
+                        onchange="previewImage(event, 'extraPreview')">
+                    <img id="extraPreview" src="" alt="Vista previa de la imagen" class="img-fluid mt-2 d-none">
+                </div>
+
+                <button type="button" class="btn btn-primary" id="add-bannerUpdate">Update</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--modal PARA AGREGAR LOS PRODUCTOS EN TENDENCIA -->
+<div class="modal fade" id="modalTendencia" tabindex="-1" role="dialog" aria-labelledby="bannerModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Agregar producto en tendencia</h5>
+                <button type="button" id="btn-closeTendencia" class="btn-close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <!-- Columna izquierda -->
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Ingresar producto</label>
+                            <select id="productoSelect" class="form-control">
+                                <option value="">Cargando productos...</option> <!-- Opción temporal -->
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Imagen del Banner:</label>
+                            <div>
+                                <img id="producto-img" src="ruta-a-imagen-por-defecto.jpg" class="img-fluid" alt="Imagen del Banner" style="height: 200px; width: 300px;">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="exampleInputName1">Nombre:</label>
+                            <input type="text" class="form-control" id="nombre-producto" placeholder="nombre" disabled>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="exampleInputName1">Descripción:</label>
+                            <input type="text" class="form-control" id="description-producto" placeholder="description" disabled>
+                        </div>
+
+                    </div>
+                
+                    <!-- Columna derecha -->
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="num-tendencia">Número de tendencia:</label>
+                            <input type="text" class="form-control" id="num-tendencia" placeholder="#1 TOP BEST DUO">
+                        </div>
+                
+                        <div class="form-group mt-3"> <!-- Margen superior para separación -->
+                            <label for="title-tendencia">Título del producto en tendencia:</label>
+                            <input type="text" class="form-control" id="title-tendencia" placeholder="TITLE">
+                        </div>
+                    </div>
+                </div>
+                
+
+                
+            </div>
+            <button type="button" class="btn btn-primary" id="add-tendencia">Agregar</button>
+        </div>
+    </div>
+</div>
+
+<!--modal PARA ACTUALIZAR LOS PRODUCTOS EN TENDENCIA -->
+<div class="modal fade" id="modalTendenciaUpdate" tabindex="-1" role="dialog" aria-labelledby="bannerModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Agregar producto en tendencia</h5>
+                <button type="button" id="btn-closeTendencia" class="btn-close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <!-- Columna izquierda -->
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Ingresar producto</label>
+                            <select id="productoSelectUpdate" class="form-control">
+                                <option value="">Cargando productos...</option> <!-- Opción temporal -->
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Imagen del Banner:</label>
+                            <div>
+                                <img id="producto-imgUpdate" src="ruta-a-imagen-por-defecto.jpg" class="img-fluid" alt="Imagen del Banner" style="height: 200px; width: 300px;">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="exampleInputName1">Nombre:</label>
+                            <input type="text" class="form-control" id="nombre-productoUpdate" placeholder="nombre" disabled>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="exampleInputName1">Descripción:</label>
+                            <input type="text" class="form-control" id="description-productoUpdate" placeholder="description" disabled>
+                        </div>
+
+                    </div>
+                
+                    <!-- Columna derecha -->
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="num-tendencia">Número de tendencia:</label>
+                            <input type="text" class="form-control" id="num-tendenciaUpdate" placeholder="#1 TOP BEST DUO">
+                        </div>
+                
+                        <div class="form-group mt-3"> <!-- Margen superior para separación -->
+                            <label for="title-tendencia">Título del producto en tendencia:</label>
+                            <input type="text" class="form-control" id="title-tendenciaUpdate" placeholder="TITLE">
+                        </div>
+                    </div>
+                </div>
+                
+
+                
+            </div>
+            <button type="button" class="btn btn-primary" id="update-tendencia">Agregar</button>
+        </div>
+    </div>
+</div>
+
+
+
+
+<div class="container">
+    <div class="row">
+        <!-- Columna 1: Productos tendencia -->
+        <div class="col-md-6">
+            <div class="col-12 grid-margin d-flex justify-content-between align-items-center"
+                style="border-bottom: 2px solid #E4E4F4;">
+                <h4 class="card-title">Productos tendencia</h4>
+                <button type="button" class="btn btn-success btn-rounded btn-icon card-title" id="btn-tendencia">
+                    <i class="typcn typcn-plus"></i>
+                </button>
+            </div>
+
+            <!-- Aquí se insertarán dinámicamente las tarjetas de tendencias -->
+            <div id="tendencias-container"></div>
+            <!-- <div class="col-12 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="forms-sample">
+                            <div class="form-group">
+                                <label for="exampleInputName1">Encabezado de la Página inicio:</label>
+                                <input type="text" class="form-control" id="exampleInputName1" placeholder="Encabezado" value="${banner.encabezado}" disabled>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputName1">Numero tendencia</label>
+                                <input type="text" class="form-control" id="exampleInputName1" placeholder="Encabezado" value="${banner.encabezado}" disabled>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputName1">Titutlo de la tendencia:</label>
+                                <input type="text" class="form-control" id="exampleInputName1" placeholder="Encabezado" value="${banner.encabezado}" disabled>
+                            </div>
+                            <button type="button" class="btn btn-primary mr-2" id="editar-Banner" data-id="${banner.id}">Editar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 grid-margin stretch-card">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="forms-sample">
+                            <div class="form-group">
+                                <label for="exampleInputName1">Encabezado de la Página inicio:</label>
+                                <input type="text" class="form-control" id="exampleInputName1" placeholder="Encabezado" value="${banner.encabezado}" disabled>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputName1">Numero tendencia</label>
+                                <input type="text" class="form-control" id="exampleInputName1" placeholder="Encabezado" value="${banner.encabezado}" disabled>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputName1">Titutlo de la tendencia:</label>
+                                <input type="text" class="form-control" id="exampleInputName1" placeholder="Encabezado" value="${banner.encabezado}" disabled>
+                            </div>
+                            <button type="button" class="btn btn-primary mr-2" id="editar-Banner" data-id="${banner.id}">Editar</button>
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+            <!-- <div id="tendencia-container"></div> -->
+        </div>
+
+        <!-- Columna 2: Encabezado y Banner -->
+        <div class="col-md-6">
+            <div class="col-12 grid-margin d-flex justify-content-between align-items-center"
+                style="border-bottom: 2px solid #E4E4F4;">
+                <h4 class="card-title">Encabezado y Banner</h4> 
+                <button type="button" class="btn btn-success btn-rounded btn-icon card-title" id="btn-banner">
+                    <i class="typcn typcn-plus"></i>
+                </button>
+            </div>
+            <div id="banner-container"></div>
+            <!-- IMAGENES DE CATEGORIA -->
+            <div class="col-12 grid-margin d-flex justify-content-between align-items-center"
+                style="border-bottom: 2px solid #E4E4F4;">
+                <h4 class="card-title">Imagen de Categorias</h4>
+                <button type="button" class="btn btn-success btn-rounded btn-icon card-title" id="btn-bannerCategory">
+                    <i class="typcn typcn-plus"></i>
+                </button>
+
+            </div>
+            <!-- <div class="card">
+                <div class="card-body">
+                    <div class="forms-sample">
+                        <div class="form-group">
+                            <label>BLUSA</label>
+                            <div>
+                                <img id="banner-img" src="https://cdn.baguer.co/uploads/2024/02/blusa-para-mujer-tipo-camisera-unicolor-unser-verde-826947VD.jpg_T8ljmLPgSUoCVcqJb8P8Ghn0XfK8OnHGXQEfwbGfpLb1aJVRls.jpg" class="img-fluid" alt="Imagen del Banner" style="height: 200px; width: 100%;">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>PANTS</label>
+                            <div>
+                                <img id="extra-img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSaCE9uKEW4C3VTYcwBTIKU04fTOHyNq11mtA&s" class="img-fluid" alt="Imagen Extra" style="height: 200px; width: 100%;">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>SHIRT</label>
+                            <div>
+                                <img id="extra-img" src="https://t4.ftcdn.net/jpg/11/68/48/27/360_F_1168482765_hDrttUnxHZLghOhXkxw8rHOx4UcQfzhw.jpg" class="img-fluid" alt="Imagen Extra" style="height: 200px; width: 100%;">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>ACCESORIES</label>
+                            <div>
+                                <img id="extra-img" src="https://fcdrycleaners.com/wp-content/uploads/2024/04/Accessorizing-with-Care-How-to-Maintain-Luxury-Accessories-Bags-Shoes-Scarves-998x570.webp" class="img-fluid" alt="Imagen Extra" style="height: 200px; width: 100%;">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>T-SHIRT</label>
+                            <div>
+                                <img id="extra-img" src="https://static.vecteezy.com/system/resources/thumbnails/028/289/456/small/apparel-mockup-back-view-of-white-t-shirt-design-for-clothes-ai-generated-photo.jpg" class="img-fluid" alt="Imagen Extra" style="height: 200px; width: 100%;">
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-primary mr-2" id="editar-Banner" data-id="${banner.id}">Editar</button>
+                    </div>
+                </div>
+            </div> -->
+            <div id="category-image-container"></div>
+        </div>
+
+    </div>
+</div>

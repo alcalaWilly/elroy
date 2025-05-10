@@ -1,0 +1,418 @@
+{# Cargar archivos estáticos #}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+
+    <!--=============== BOXICONS ===============-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+    <!--=============== SWIPER CSS ===============-->
+    <link rel="stylesheet" href="{% static 'css/swiper-bundle.min.css' %}">
+
+    <!--=============== CSS ===============-->
+
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/fonts.css' %}">
+    <link rel="stylesheet" href="{% static 'css/colors/color-1.css' %}">
+
+
+    <title>EL♥ROI</title>
+    <link rel="icon" href="{% static '/img/icoLogo.ico' %}">
+</head>
+
+<!-- <script>
+    // Obtener los datos del usuario desde Django (inyectados en la plantilla)
+    const accessToken = "{{ access_token }}";
+    const refreshToken = "{{ refresh_token }}";
+    const pictureUrl = "{{ picture_url }}";
+    const email = "{{ email }}";
+
+    // Guardar los datos en localStorage
+    localStorage.setItem("access_token", accessToken);
+    localStorage.setItem("refresh_token", refreshToken);
+    localStorage.setItem("picture_url", pictureUrl);
+    localStorage.setItem("email", email);
+
+    // console.log("Datos guardados en localStorage:");
+    console.log("Access Token:", accessToken);
+    console.log("Refresh Token:", refreshToken);
+    // console.log("Picture URL:", pictureUrl);
+    // console.log("Email:", email);
+</script> -->
+
+<body data-api-url="{{ API_BASE_URL }}">
+    <!--=============== HEADER ===============-->
+    <header class="header " id="header">
+        <div class="subheader">
+            <span class="subheader__info">..........</span>
+            <div class="subheader__social">
+                <div class="subheader__insta">
+                    <i class="bx bxl-instagram"></i>
+                </div>
+                <div class="subheader__x">
+                    <i class="bx bxl-facebook"></i>
+                </div>
+                <div class="subheader__tiktok">
+                    <i class="bx bxl-tiktok"></i>
+                </div>
+            </div>
+        </div>
+        <nav class="nav container">
+            <a href="{% url 'index' %}" class="nav__logo-icon">
+                <img id="logoBlanco" class="logo" src="{% static 'img/logoBlanco.png' %}" alt="Logo ELROI ">
+                <img id="logoNegro" class="logo hidden" src="{% static 'img/logoNegro.png' %}" alt="Logo ELROI Negro">
+            </a>
+            <div class="nav__menu" id="nav-menu">
+                <ul class="nav__list">
+                    <li class="nav__item"><a href="{% url 'index' %}" id="link1"
+                            class="nav__link {% if request.path == '/' %}activate-link{% endif %}">Inicio</a>
+                    </li>
+                    <li class="nav__item"><a href="{% url 'shop' %}" id="link2"
+                            class="nav__link {% if request.path == '/shop/' %}activate-link{% endif %}">Shop</a></li>
+                    <li class="nav__item"><a href="{% url 'about' %}" id="link7"
+                            class="nav__link {% if request.path == '/about/' %}activate-link{% endif %}">About us</a>
+                    </li>
+                    <li class="nav__item"><a href="{% url 'contact' %}" id="link8"
+                            class="nav__link {% if request.path == '/contact/' %}activate-link{% endif %}">Contacts</a>
+                    </li>
+                </ul>
+
+                <div class="nav__close" id="nav-close">
+                    <i class="bx bx-x"></i>
+                </div>
+            </div>
+            <div class="nav__btns">
+                <div class="nav__shop" id="cart-shop">
+                    <i class="bx bx-cart-alt" id="link3"></i>
+                </div>
+                <div class="nav__search" id="cart-search">
+                    <i class="bx bx-search" id="link4"></i>
+                </div>
+                <div class="login__toggle" id="login-button">
+                    {% if user.is_authenticated %}
+                    <a href="{% url 'my_acount' %}">
+                        <div class="userLoged">
+                            <img id="profile-pic" src="{% static 'img/default-profile.png' %}" alt="Perfil"
+                                class="profile-pic">
+                            <p id="user-email">{{ user.email }}</p>
+                        </div>
+                    </a>
+                    {% else %}
+                    <i class="bx bx-user" id="link5"></i>
+                    {% endif %}
+                </div>
+                <div class="login__toggle" id="login-button">
+                    <button id="auth-button" class="auth-button"></button>
+                </div>
+                <div class="nav__toggle" id="nav-toggle">
+                    <i class="bx bx-grid-alt" id="link6"></i>
+                </div>
+            </div>
+        </nav>
+
+    </header>
+    <!--=============== CART ===============-->
+    <div class="cart" id="cart">
+        <div class="cart__head">
+            <h2 class="cart__title-center">My Cart</h2>
+            <i class="bx bx-x cart__close" id="cart-close"></i>
+        </div>
+        <div class="cart__container" id="cart-container">
+            <!-- Aquí se agregarán los productos dinámicamente -->
+        </div>
+        <!-- Sección de precios -->
+        <div class="cart__prices">
+            <span class="cart__prices-item">SUBTOTAL</span>
+            <span class="cart__total">s/ 0.00</span> <!-- Se actualiza dinámicamente desde JS -->
+        </div>
+        <!-- Botón de checkout -->
+        <div id="checkout-button-container">
+        </div>
+    </div>
+
+    <!--=============== LOGIN ===============-->
+    <div class="login" id="login">
+        <i class="bx bx-x login__close" id="login-close"></i>
+        <h2 class="login__title-center">WELCOME</h2>
+
+        <!-- Opciones para redes sociales -->
+        <div class="login__redes">
+            <a href="{% url 'social:begin' 'google-oauth2' %}" class="redes">
+                <img src="{% static 'img/google.svg' %}" class="redImg" alt="Google Login">
+                <span class="redNom">Ingresa con Google</span>
+            </a>
+
+            <a href="{% url 'social:begin' 'facebook' %}" class="redes">
+                <img src="{% static 'img/facebook.svg' %}" class="redImg" alt="Facebook Login">
+                <span class="redNom">Ingresa con Facebook</span>
+            </a>
+        </div>
+
+        <!-- Separador -->
+        <div class="login__separador">
+            <div class="line1"></div>
+            <span class="loginSep">o</span>
+            <div class="line2"></div>
+        </div>
+
+        <!-- Formulario de Login -->
+        <form id="loginForm" class="login__form grid" action="{% url 'login_user' %}" method="POST">
+            {% csrf_token %}
+            <div class="login__content">
+                <input type="email" id="email" name="username" class="login__input" required>
+                <label for="email" class="login__label">Enter your email</label>
+            </div>
+
+            <div class="login__content">
+                <input type="password" id="password" name="password" class="login__input" required>
+                <label for="password" class="login__label">Enter your password</label>
+            </div>
+
+            <div class="login__error" id="error-message" style="display: none; color: red;"></div>
+            <div class="crear__cuenta">
+                <button type="submit" class="button__login">Ingresar</button>
+                <div class="crear__cuenta-crear" id="createCount-button">
+                    <span>crear cuenta</span>
+                    <i class="bx bx-right-arrow-alt"></i>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <!-- Modal de búsqueda -->
+    <div class="modal-search" id="modal-search">
+        <i class="bx bx-x cart__close close-search" id="search-close"></i>
+        <div class="search-div">
+            <input placeholder="BUSCAR..." class="search-input" id="searchProduct" type="text">
+            <i class="bx bx-search"></i>
+        </div>
+        <div class="contentCart-search"></div>
+        <!-- <div class="contentCart-search">
+            <div class="cardImg-search">
+                <img class="cardImg-search" src="https://vialepe.vtexassets.com/arquivos/ids/181513/ZAPATO-REINA-VESTIR-MUJER-SINTETICO-PIAZZA-TACO-10-IMP-1025A-NEGRO-1.jpg?v=638539846199630000" alt="">
+                <span class="new__title">RETRO RAINBOW PUMP AZUL</span>
+                <span class="new__price">s/. 750</span>
+            </div>
+            <div class="cardImg-search">
+                <img class="cardImg-search" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRiRoy38dlehluBdvhfulRsefqSem7r2Dvzng&s" alt="">
+                <span class="new__title">RETRO RAINBOW PUMP AZUL</span>
+                <span class="new__price">s/. 750</span>
+            </div>
+            <div class="cardImg-search">
+                <img class="cardImg-search" src="https://d2j6dbq0eux0bg.cloudfront.net/images/66610504/2636936256.jpg" alt="">
+                <span>RETRO RAINBOW PUMP AZUL</span>
+                <span>s/. 750</span>
+            </div>
+            <div class="cardImg-search">
+                <img class="cardImg-search" src="https://vialepe.vtexassets.com/arquivos/ids/181513/ZAPATO-REINA-VESTIR-MUJER-SINTETICO-PIAZZA-TACO-10-IMP-1025A-NEGRO-1.jpg?v=638539846199630000" alt="">
+                <span>RETRO RAINBOW PUMP AZUL</span>
+                <span>s/. 750</span>
+            </div>
+        </div> -->
+    </div>
+
+    
+    <!--=============== CREAR CEUNTA ===============-->
+    <div class="login" id="crear">
+        <div class="crear__count">
+            <i class="bx bx-left-arrow-alt volver__login" id="loginCount-volver"></i>
+            <i class="bx bx-x crear__close" id="loginCount-close"></i>
+        </div>
+        <h2 class="login__title-center">CREATE A COUNT</h2>
+        <form method="post" class="login__form grid">
+            <div class="login__content">
+                <input type="text" id="nombre" name="nombre" class="login__input" required>
+                <label for="text" class="login__label">Nombre</label>
+            </div>
+            <div class="login__content">
+                <input type="text" id="apellidos" name="apellidos" class="login__input" required>
+                <label for="text" class="login__label">Apellido</label>
+            </div>
+            <div class="login__content">
+                <input type="email" id="emailCreate" name="username" class="login__input" required>
+                <label for="email" class="login__label">Correo electrónico</label>
+            </div>
+
+            <div class="login__content">
+                <input type="password" id="passwordCreate" name="password" class="login__input" required>
+                <label for="password" class="login__label">contraseña</label>
+            </div>
+            <div class="login__content">
+                <input type="text" id="phone" name="phone" class="login__input" required>
+                <label for="text" class="login__label">número telefónico</label>
+            </div>
+            <!-- <div class="contenedor-botones" id="contenedor-botones">
+                <button type="submit" class="button__login" id="crearCuenta" data-tipo="crearCuenta">Crear</button>
+            </div>
+            <div class="contenedor-toast" id="contenedor-toast"></div> -->
+            <div class="contenedor-botones" id="contenedor-botones">
+                <button type="submit"  class="btnCrear exito" id="crearCuenta" data-tipo="exito">Crear Cuenta</button>
+            </div>
+            <div class="contenedor-toast" id="contenedor-toast"></div>
+        </form>
+        <!-- BOTON -->
+        <!-- <div class="contenedor-botones" id="contenedor-botones">
+            <button class="btnCrear exito" data-tipo="exito">Exito</button>
+        </div>
+        <div class="contenedor-toast" id="contenedor-toast"></div> -->
+    </div>
+    <!--=============== MAIN ===============-->
+    <div class="main">
+        {% block content %}
+
+        {% endblock %}
+    </div>
+    <!--=============== FOOTER ===============-->
+    <footer class="footer section">
+
+        <div class="footer__container container grid">
+            <!-- footer content 1 -->
+            <div class="footer__content">
+                <!-- <a href="#" class="footer__logo">
+                    <img class="footer__logo-item" src="assets/img/logo.png" alt="Logo ELROI">
+                </a> -->
+                <h3 class="footer__title">Siguenos</h3>
+                <ul class="footer__social">
+                    <a href="#" class="footer__social-link"><i class="bx bxl-instagram"></i></a>
+                    <a href="#" class="footer__social-link"><i class="bx bxl-facebook"></i></a>
+                    <a href="#" class="footer__social-link"><i class="bx bxl-tiktok"></i></a>
+                    <a href="#" class="footer__social-link"><i class="bx bxl-whatsapp"></i></a>
+                </ul>
+            </div>
+            <!-- footer content 3-->
+            <div class="footer__content">
+                <h3 class="footer__title">Ayuda</h3>
+                <ul class="footer__liks">
+                    <li><a href="#" class="footer__link list">Preguntas frecuentes</a></li>
+                    <li><a href="#" class="footer__link list">Terminos y condiciones</a></li>
+                    <li><a href="#" class="footer__link list">Costos y pazo de envío</a></li>
+                    <li><a href="#" class="footer__link"><img class="libro lazy"
+                                src="{% static 'img/reclamaciones.png' %}" alt="Libro de reclamaciones"></a></li>
+                </ul>
+            </div>
+            <!-- footer content 2 -->
+            <div class="footer__content">
+                <h3 class="footer__title">Información</h3>
+                <ul class="footer__liks">
+                    <li><a href="#" class="footer__link list">Nosotros</a></li>
+                    <li><a href="#" class="footer__link list">Contactos</a></li>
+                    <li><a href="#" class="footer__link list">Políticas de privacidad</a></li>
+                </ul>
+            </div>
+
+        </div>
+        <div class="footer__line">
+
+        </div>
+
+        <span class="footer__copy">&#169;EL♥ROI. Todos los derechos reservados</span>
+
+        <a href="#" class="scrollup" id="scroll-up">
+            <i class="bx bx-up-arrow-alt scrollup__icon"></i>
+        </a>
+
+        <a href="https://wa.me/51987654321?text=¡Hola!%20Estoy%20interesado%20en%20la%20ropa%20de%20su%20tienda." class="scrollupWhatsapp" id="scroll-whatsapp" target="_blank">
+            <img src="{% static 'img/whatsapp.svg' %}" alt="Whatsapp">
+        </a>
+
+    </footer>
+
+    <!--=============== SWIPER JS ===============-->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="{% static 'js/swiper-bundle.min.js' %}"></script>
+    <script src="https://unpkg.com/scrollreveal@4.0.0/dist/scrollreveal.min.js"></script>
+    <script src="https://js.braintreegateway.com/web/dropin/1.32.0/js/dropin.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+
+    <!--=============== JS ===============-->
+
+
+
+    <!-- <script src="{% static 'js/login.js' %}"></script> -->
+    <script src="{% static 'js/cart.js' %}"></script>
+    <script src="{% static 'js/main.js' %}"></script>
+    <script src="{% static 'js/productDetails.js' %}"></script>
+    <script src="{% static 'js/userLogated.js' %}"></script>
+    <script src="{% static 'js/checkout.js' %}"></script>
+
+    <!-- Bloque para scripts -->
+
+    <script>
+        // Función para obtener los parámetros de la URL
+        function getQueryParams() {
+            const params = {};
+            window.location.search.substring(1).split('&').forEach(param => {
+                const [key, value] = param.split('=');
+                params[decodeURIComponent(key)] = decodeURIComponent(value);
+            });
+            return params;
+        }
+
+        // Almacenar los tokens en localStorage
+        const params = getQueryParams();
+        if (params.access_token && params.refresh_token) {
+            localStorage.setItem('access_token', params.access_token);
+            localStorage.setItem('refresh_token', params.refresh_token);
+            localStorage.setItem('email', params.email);
+            localStorage.setItem('picture_url', params.picture_url);
+            localStorage.setItem("first_name", decodeURIComponent(params.first_name.replace(/\+/g, " ")));
+            localStorage.setItem("last_name", decodeURIComponent(params.last_name.replace(/\+/g, " ")));
+
+
+            // Redirigir al usuario a la página de inicio
+            window.location.href = "{% url 'my_acount' %}";
+        }
+
+        // Función para cerrar sesión
+        // function logout() {
+        //     fetch("{% url 'logout' %}", {
+        //         method: "POST",
+        //         headers: {
+        //             "X-CSRFToken": getCSRFToken()  // Necesario para proteger la petición
+        //         }
+        //     }).then(response => {
+        //         if (response.ok) {
+        //             // Eliminar datos del localStorage
+        //             localStorage.removeItem('access_token');
+        //             localStorage.removeItem('refresh_token');
+        //             localStorage.removeItem('email');
+        //             localStorage.removeItem('picture_url');
+
+        //             // 🔹 Recargar la página para reflejar el estado de logout
+        //             window.location.href = "{% url 'index' %}";
+        //         }
+        //     }).catch(error => console.error("Error al cerrar sesión:", error));
+        // }
+
+        // Función para obtener el token CSRF desde las cookies
+        function getCSRFToken() {
+            const name = "csrftoken";
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                let cookie = cookies[i].trim();
+                if (cookie.startsWith(name + "=")) {
+                    return cookie.substring(name.length + 1);
+                }
+            }
+            return "";
+        }
+
+    </script>
+
+
+
+</body>
+
+</html>

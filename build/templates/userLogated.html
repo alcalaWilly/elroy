@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Inicio
+{% endblock %}
+
+{% block content %}
+<!--=============== MAIN ===============-->
+
+<div class="box"></div>
+<div class="grid-containerUser">
+    <aside id="sidebar" class="sidebar">
+        <ul class="sidebar-list">
+            <li class="sidebar-list-item active" data-url="{% url 'pedidos' %}">
+                <a href="#"> <span class="material-icons-outlined">receipt_long</span> Pedidos </a>
+            </li>
+            <li class="sidebar-list-item" data-url="{% url 'perfilUser' %}">
+                <a href="#"> <span class="material-icons-outlined">person</span> Perfil </a>
+            </li>
+        </ul>
+    </aside>
+    <main id="main-content" class="main-containerUser">
+        {% include content_template %}
+    </main>
+</div>
+
+
+{% endblock %}

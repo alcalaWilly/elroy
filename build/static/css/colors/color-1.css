@@ -1,0 +1,9 @@
+:root
+{
+    --hue: 0;
+    /* --hua: 340; 
+    --first-color: hsl(var(--hua), 45%, 72%); */
+    --hua: 340; /* Matiz correspondiente a #EFE3E6 */
+    --first-color: hsl(var(--hua), 28%, 91%); 
+    --first-color-alt: hsl(var(--hue), 88%, 58%)
+}

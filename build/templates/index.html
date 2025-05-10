@@ -1,0 +1,205 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Inicio
+{% endblock %}
+
+{% block content %}
+    <!--=============== HOME ===============-->
+    <section class="container-home section">
+        <div class="swiper home-swiper">
+            <div class="swiper-wrapper" id="swiper-wrapper">
+                <!-- swiper 1 -->
+                <!-- <section class="swiper-slide">
+                    <div class="home__content grid">
+                        <div class="home__group">
+                            <img src="assets/img/slide-2.png" alt="" class="home__img img lazy">
+                            <div class="home__indicator"></div>
+
+                            <div class="home__details-img">
+                                <h4 class="home__details-title">The "Cardigan"</h4>
+                                <span class="home__details-subtitle">Woolen</span>
+                            </div>
+                        </div>
+                        <div class="home__data">
+                            <h3 class="home__subtitle">#1 tendencia item</h3>
+                            <h1 class="home__title">ORIGINAL <br> NUEVO <br>TERMINANDO!!</h1>
+                            <p class="home__description">Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                                Earum ipsam adipisicing elit. Earum ipsam.</p>
+
+                            <div class="home__buttons">
+                                <a href="details.html" class="button__more">shop now</a>
+                            </div>
+                        </div>
+                    </div>
+                </section> -->
+
+                <!-- swiper 2 -->
+                <!-- <section class="swiper-slide">
+                    <div class="home__content grid">
+                        <div class="home__group">
+                            <img src="assets/img/slide-3.png" alt="" class="home__img lazy">
+                            <div class="home__indicator"></div>
+
+                            <div class="home__details-img">
+                                <h4 class="home__details-title">Jquwery</h4>
+                                <span class="home__details-subtitle">ski Suit</span>
+                            </div>
+                        </div>
+                        <div class="home__data">
+                            <h3 class="home__subtitle">#2 top Best duo</h3>
+                            <h1 class="home__title">ORIGINAL <br> NUEVO <br>TERMINANDO!!</h1>
+                            <p class="home__description">Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                                Earum ipsam adipisicing elit. Earum ipsam.</p>
+
+                            <div class="home__buttons">
+                                <a href="details.html" class="button__more">shop now</a>
+                            </div>
+                        </div>
+                    </div>
+                </section> -->
+
+                <!-- swiper 3 -->
+                <!-- <section class="swiper-slide">
+                    <div class="home__content grid">
+                        <div class="home__group">
+                            <img src="assets/img/slide-1.png" alt="" class="home__img lazy">
+                            <div class="home__indicator"></div>
+
+                            <div class="home__details-img">
+                                <h4 class="home__details-title">Jurry</h4>
+                                <span class="home__details-subtitle">ski Suit</span>
+                            </div>
+                        </div>
+                        <div class="home__data">
+                            <h3 class="home__subtitle">#3 TREDING ITEM</h3>
+                            <h1 class="home__title">Sale 20% <br> OFF ON <br>EVERITHING</h1>
+                            <p class="home__description">Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                                Earum ipsam adipisicing elit. Earum ipsam.</p>
+
+                            <div class="home__buttons">
+                                <a href="details.html" class="button__more">shop now</a>
+                            </div>
+                        </div>
+                    </div>
+                </section> -->
+            </div>
+            <div class="swiper-pagination"></div>
+        </div>
+    </section>
+    <!--=============== NEW ARRIVALS ===============-->
+    <section class="new section">
+        <h2 class="section__title">NEW ARRIVALS</h2>
+        <div class="new__container container" id="new-products">
+            <div class="swiper mySwiper">
+                <div class="swiper-wrapper new-wrapper">
+                    <!-- Los productos nuevos se insertarán dinámicamente aquí -->
+                </div>
+            </div>
+        </div>
+        <div class="new__button--more"> 
+            <a href="{% url 'shop' %}?new=true" class="button__more">Ver todo</a>
+        </div>
+    </section>
+
+    <!--=============== DISCOUNT ===============-->
+    <section class="discount section">
+        <div class="discount__opaco">
+            <div class="discount__container container grid">
+                <!-- <img src="assets/img/discount.png" alt="" class="discount__img"> -->
+
+                <div class="discount__data">
+                    <!-- <h2 class="discount__title"> 50% de descuento <br> Nuestro catálogo</h2> -->
+                    <a href="#" class="button__more">Ver más</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--=============== STEPS ===============-->
+    <section class="new section">
+        <h2 class="section__title">SALE</h2>
+        <div class="new__container container" id="discounted-products">
+            <div class="swiper mySwiper">
+                <div class="swiper-wrapper new-wrapper">
+                    <!-- Los productos con descuento se insertarán dinámicamente aquí -->
+                </div>
+            </div>
+        </div>
+        <div class="new__button--more">
+            <a href="{% url 'shop' %}?promotions=true" class="button__more">Ver todo</a>
+        </div>
+    </section>
+
+    <!--=============== ACCESORIES ===============-->
+    <section class="new section">
+        <h2 class="section__title">ACCESORIES</h2>
+        <div class="new__container container" id="accesories">
+            <div class="swiper mySwiper">
+                <div class="swiper-wrapper new-wrapper">
+                    <!-- Los productos nuevos se insertarán dinámicamente aquí -->
+                </div>
+            </div>
+        </div>
+        <div class="new__button--more">
+            <a href="{% url 'shop' %}?category=3" class="button__more">Ver todo</a>
+        </div>
+    </section>
+
+    <!--=============== CATEGORIAS ===============-->
+    <!-- <section class="photo-filter section">
+        <div class="Memories_wrapper">
+            <div class="MemoriesCard">
+                <img src="assets/img/blog-1.webp" alt="Memories-img" />
+                <a href="shop.html">
+                    <div class="content">
+                        <h3>Accesorios</h3>
+                    </div>
+                </a>
+            </div>
+            <div class="MemoriesCard">
+                <img src="assets/img/blog-2.webp" alt="Memories-img" />
+                <a href="shop.html">
+                    <div class="content">
+                        <h3>Faldas</h3>
+                    </div>
+                </a>
+            </div>
+
+            <div class="MemoriesCard">
+                <img src="assets/img/blusa.jpg" alt="Memories-img" />
+                <a href="shop.html">
+                    <div class="content">
+                        <h3>Blusas</h3>
+                    </div>
+                </a>
+            </div>
+
+            <div class="MemoriesCard">
+                <img src="assets/img/blusa2.webp" alt="Memories-img" />
+                <a href="shop.html">
+                    <div class="content">
+                        <h3>vestidos</h3>
+                    </div>
+                </a>
+            </div>
+
+            <div class="MemoriesCard">
+                <img src="assets/img/blusa3.png" alt="Memories-img" />
+                <a href="shop.html">
+                    <div class="content">
+                        <h3>sacos y abrigos</h3>
+                    </div>
+                </a>
+
+            </div>
+        </div>
+
+    </section> -->
+
+    <section class="photo-filter section">
+        <div class="Memories_wrapper" id="categoryCardsContainer">
+            <!-- Aquí se cargan dinámicamente las tarjetas -->
+        </div>
+    </section>
+
+    {% endblock %}

@@ -1,0 +1,202 @@
+<main class="content">
+    <div class="container-fluid p-0">
+
+        <div class="mb-3">
+            <h1 class="h3 d-inline align-middle">Detalle del pedido</h1>
+        </div>
+        <div class="card-body">
+            <h5 class="fecha-compra">10 de abril de 2025 a las 15:44 </h5>
+        </div>
+
+
+        <div class="stepper" id="stepper">
+            <div class="step active">
+                <div class="icon"><i class="fas fa-credit-card"></i></div>
+                <p>Pagado</p>
+            </div>
+            <div class="step">
+                <div class="icon"><i class="fas fa-box-open"></i></div>
+                <p>Empaquetado</p>
+            </div>
+            <div class="step">
+                <div class="icon"><i class="fas fa-shipping-fast"></i></div>
+                <p>En Camino</p>
+            </div>
+            <div class="step">
+                <div class="icon"><i class="fas fa-archive"></i></div>
+                <p>Entregado</p>
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="col-md-8 col-xl-9">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h5 class="card-title mb-0 pedidoH5">Productos</h5>
+                    </div>
+                    <!-- <div class="card">
+                        <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th style="color: #0008; font-weight: bold;" scope="col">Producto</th>
+                                        <th style="color: #0008; font-weight: bold;" scope="col">Cantidad</th>
+                                        <th style="color: #0008; font-weight: bold;" scope="col">Total</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr data-product-id="123" data-talla-id="1" data-color-hex="#FF5733">
+                                        <td>
+                                            <div class="tablePedido"
+                                                style="display: flex; gap: 10px; align-items: center;">
+                                                <img src="https://via.placeholder.com/50" height="50" width="50" alt="">
+                                                <div class="productoDetaalle">
+                                                    <span>Zapatilla Deportiva</span>
+                                                    <div class="tallaPedido">
+                                                        <span>M</span>
+                                                    </div>
+                                                    <span class="abrirModalCodigo">89.90
+                                                        PEN
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <label class="numPedido" for="" value="1"><span>1</span></label>
+                                        </td>
+                                        <td><span class="totalPrecio">89.90 PEN</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        <div id="tablaOrder">
+                            <table class="table">
+                                <thead>...</thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </div> -->
+                    <div class="card">
+                        <div id="tablaOrder">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th style="color: #0008; font-weight: bold;" scope="col">Producto</th>
+                                        <th style="color: #0008; font-weight: bold;" scope="col">Cantidad</th>
+                                        <th style="color: #0008; font-weight: bold;" scope="col">Total</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Las filas se agregarán aquí dinámicamente por JS -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title mb-0 pedidoH5">Pagado</h5>
+                    </div>
+                    <div class="pagoPedido">
+                        <div class="descriptionPedido">
+                            <div class="detallePedido">
+                                <span>Subtotal</span>
+                                <span>añadir envío o entrega</span>
+                            </div>
+                            <div class="detallePedido resumenPedido">
+                                <span class="cantidadArticulos">0 artículo</span>
+                                <span class="nombreEnvio">envioo</span>
+
+                            </div>
+                            <div class="detallePedido endPedido totalesSinExtras">
+                                <span class="subtotalSinDescuento">0,00 PEN</span>
+                                <span class="precioEnvio">0,00 PEN</span>
+                            </div>
+                        </div>
+                        <div class="totalPedido">
+                            <span>Total</span>
+                            <span class="totalGeneral">0,00 PEN</span>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="col-md-4 col-xl-3 ">
+                <div class="card mb-3">
+
+                    <div class="card-header clienteEdit">
+                        <h5 class="card-title mb-0">Cliente</h5>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="h6 card-title clienteDate">Cliente</h5>
+                            <ul class="list-unstyled mb-0">
+                                <li class="mb-1 d-flex align-items-center">
+                                    <a id="cliente-nombre" class="fw-bold text-blue">
+                                        Cargando...
+                                    </a>
+                                </li>
+
+                                <li class="mb-1 d-flex align-items-center">
+                                    <a id="total-compra" class="fw-bold text-blue">
+                                        Cargando...
+                                    </a>
+                                </li>
+                                <!-- Total compra lo omitimos por ahora -->
+                            </ul>
+                        </div>
+
+                        <div class="card-body">
+                            <h5 class="h6 card-title clienteDate">Información del contacto</h5>
+                            <ul class="list-unstyled mb-0">
+                                <li class="mb-1 d-flex align-items-center">
+                                    <span data-feather="mail" class="feather-sm me-2 text-primary"></span>
+                                    <a href="mailto:cliente@example.com" id="cliente-email" class="fw-bold text-blue">
+                                        Cargando...
+                                    </a>
+                                </li>
+                                <li class="mb-1">
+                                    <span data-feather="phone" class="feather-sm me-1"></span>
+                                    <span id="cliente-telefono">Cargando...</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="card-body">
+                            <h5 class="h6 card-title clienteDate">Dirección predeterminada</h5>
+                            <ul class="list-unstyled mb-0">
+                                <li class="mb-1">
+                                    <span data-feather="id-card" class="feather-sm me-1"></span>
+                                    <span id="cliente-ruc">Cargando...</span>
+                                </li>
+                                <li class="mb-1">
+                                    <span id="cliente-direccion">Cargando...</span>
+                                </li>
+                                <li class="mb-1">
+                                    <span data-feather="map" class="feather-sm me-1"></span>
+                                    <span id="cliente-ciudad">Cargando...</span>
+                                </li>
+                                <li class="mb-1">
+                                    <span data-feather="globe" class="feather-sm me-1"></span>
+                                    <span id="cliente-region">Cargando...</span>
+                                </li>
+                                <li class="mb-1">
+                                    <span data-feather="mail" class="feather-sm me-1"></span>
+                                    <span id="cliente-codPostal">Cargando...</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</main>

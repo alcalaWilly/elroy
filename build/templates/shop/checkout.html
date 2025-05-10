@@ -1,0 +1,208 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Inicio
+{% endblock %}
+
+{% block content %}
+{% load static %}
+<div class="box"></div>
+<!-- <div id="success-message" style="display: none; padding: 15px; background-color: green; color: white; text-align: center; font-weight: bold; border-radius: 5px;">
+    ¡Pago procesado con éxito!
+</div> -->
+<section class="checkout">
+    <!-- BOTÓN para MÓVILES -->
+    <div id="checkout-toggle" class="checkout__toggle">
+        <div class="checkout__toggle-sep">
+            <div class="checkout__toggle-de">
+                <span>Detalle producto</span>
+                <img src="{% static 'img/arrow-down.svg' %}" class="listSortBy">
+            </div>
+            <span id="priceDetalle">0,00 PEN</span>
+        </div>
+    </div>
+    <div class="checkout__date">
+        <div class="checkout__date-title">
+            <h2 class="checkout-sub">Contacto</h2>
+        </div>
+
+        <div class="input-checkboxes">
+            <input type="email" id="emailOr" class="checkbox-inputs" required>
+            <label for="email" class="checkbox-labels">Correo electrónico</label>
+        </div>
+        <div class="checkbox-container">
+            <input type="checkbox" id="info">
+            <label for="info">Quiero recibir información sobre mi pedido</label>
+        </div>
+        <h2 class="checkout-sub">Infromación</h2>
+        <div class="checkout__date-info">
+            <div class="input-checkboxes">
+                <input type="text" id="nombreOr" class="checkbox-inputs" required>
+                <label for="nombre" class="checkbox-labels">NOMBRES</label>
+            </div>
+            <div class="input-checkboxes">
+                <input type="text" id="apellidoOr" class="checkbox-inputs" required>
+                <label for="apellido" class="checkbox-labels">APELLIDOS</label>
+            </div>
+        </div>
+        <div class="input-checkboxes">
+            <input type="text" id="dniOr" class="checkbox-inputs" required>
+            <label for="dni" class="checkbox-labels">DNI/RUC</label>
+        </div>
+        <div class="input-checkboxes">
+            <input type="text" id="direcionOr" class="checkbox-inputs" required>
+            <label for="direcion" class="checkbox-labels">DIRECCIÓN</label>
+        </div>
+        <div class="checkout__date-info">
+            <div class="input-checkboxes">
+                <input type="text" id="ciudadOr" class="checkbox-inputs" required>
+                <label for="ciudad" class="checkbox-labels">CIUDAD</label>
+            </div>
+            <div class="input-checkboxes">
+                <select id="regionOr" class="checkbox-inputs selectProvincia" required>
+                </select>
+                <label for="regionOr" class="checkbox-labels">PROVINCIA</label>
+            </div>
+            <div class="input-checkboxes">
+                <input type="text" id="cod-postalOr" class="checkbox-inputs" required>
+                <label for="cod-postal" class="checkbox-labels">COD postal(opc)</label>
+            </div>
+        </div>
+        <div class="input-checkboxes">
+            <input type="text" id="telefonoOr" class="checkbox-inputs" required>
+            <label for="telefono" class="checkbox-labels">TELÉFONO</label>
+        </div>
+        <div class="checkbox-container">
+            <input type="checkbox" id="info">
+            <label for="info">Guarda esta información para la próxima vez</label>
+        </div>
+        <h2 class="checkout-sub">Método de envío</h2>
+        <!-- <div class="checkout__envio"> 
+            <div class="checkout__envio-contenido" id="envio-free">
+                <div class="checkout__envio-check">
+                    <input class="checkbox-envio" type="checkbox">
+                    <div class="checkout__envio-description">
+                        <span>ENVÍO GRATIS</span>
+                        <span>a toda lima metropolitana</span>
+                    </div>
+                </div>
+                <div>
+                    <span>Gratis</span>
+                </div>
+            </div>
+
+            <div class="checkout__envio-contenido" id="envio-provincia">
+                <div class="checkout__envio-check">
+                    <input class="checkbox-envio" type="checkbox">
+                    <div class="checkout__envio-description">
+                        <span>ENVÍO PROVINCIA</span>
+                        <span>6 días hábiles</span>
+                    </div>
+                </div>
+                <div>
+                    <span>S/ 20.00</span>
+                </div>
+            </div>
+        </div>  -->
+
+
+        <div class="checkout__envio" id="shipping-options-container">
+            <!-- Opciones de envío generadas dinámicamente -->
+        </div>
+        <h2 class="checkout-sub">Pago</h2>
+        <div class="checkout_pago">
+            <span>Al ser redirigido, aceptas los términos y condiciones de uso de Mercado Pago.</span>
+            <!-- <div class="metodo-pago">
+                <div class="metodo-header">
+                    <span>CREDIT/DEBIT CARD PAYMENT</span>
+                    <div class="metodo-tarjetas">
+                        <img src="https://img.icons8.com/color/36/000000/visa.png">
+                        <img src="https://img.icons8.com/color/36/000000/mastercard.png">
+                        <img src="https://img.icons8.com/color/36/000000/amex.png">
+                        <span>+1</span>
+                    </div>
+                </div>
+                <div class="metodo-contenido">
+                        <div class="cardInput">
+                            <label for="cc-number" class="cardInput-label">CARD NUMBER</label>
+                            <input class="cardInput-input cc-number" id="cc-number" type="tel" type="text"
+                            autocomplete="cc-number" placeholder="&bull;&bull;&bull;&bull; &bull;&bull;&bull;&bull; &bull;&bull;&bull;&bull; &bull;&bull;&bull;&bull;" required>
+                        </div>
+                        <div class="card-row">
+                            <div class="cardInput">
+                                <label for="cc-exp" class="cardInput-label">CARD EXPIRY</label>
+                                <input class="cardInput-input cc-exp" id="cc-exp" type="tel" type="text" placeholder="&bull;&bull; / &bull;&bull;" autocomplete="cc-exp" required>
+                            </div>
+                            <div class="cardInput">
+                                <label for="cc-cvc" class="cardInput-label">CARD CVC</label>
+                                <input class="cardInput-input cc-cvc" id="cc-cvc" type="tel" type="tel" autocomplete="off"  placeholder="&bull;&bull;&bull;&bull;" required>
+                            </div>
+                        </div>
+                        <div class="cardInput">
+                            <label class="cardInput-label">CARD HOLDER NAME</label>
+                            <input class="cardInput-input" id="cc-number"  type="text" placeholder="John Doe">
+                        </div>
+                </div>
+                <div id="dropin-container"></div>
+            </div> -->
+
+            <p class="validation"></p>
+        </div>
+        <div id="dropin-container"></div>
+        <!-- <div class="creditCart">
+            <div>
+                <div class="creditCart-header">
+                    <div class="targets-header">
+                        <span>CREDIT/DEBIT CARD PAYMENT</span>
+
+                    </div>
+
+                    <div class="creditCart-targets">
+
+                        <img src="https://img.icons8.com/color/36/000000/visa.png">
+                        <img src="https://img.icons8.com/color/36/000000/mastercard.png">
+                        <img src="https://img.icons8.com/color/36/000000/amex.png">
+
+                    </div>
+
+                </div>
+            </div>
+            <div>
+
+            </div>
+        </div> -->
+
+        <div class="buton-pagar" id="pay-button">
+            <span class="textPagar">Pagar ahora</span>
+            <div class="loading-spinner"></div>
+        </div>
+    </div>
+    <div class="checkout__products">
+        <i class="bx bx-x cart__closeDetalle" id="cart-close"></i>
+        <div id="product-container" class="product-container"></div>
+
+        <div class="discount__checkout">
+            <div class="input-checkboxes discountL">
+                <input type="text" id="coupon_code" class="checkbox-inputs discountL" required>
+                <label for="coupon_code" class="checkbox-labels discountI">Tarjeta de regalo o código de
+                    descuento</label>
+            </div>
+            <button id="applyCouponButton">Aplicar</button>
+        </div>
+
+        <span class="responseCupon"></span>
+
+        <div class="summary">
+            <div class="cartTotalItem">
+                <p>Subtotal <span id="subtotal-items"> 0 </span>artículos</p>
+                <span id="subtotal-amount">S/ 0.00</span>
+            </div>
+            <p>Envío <span id="shipping-cost">S/ 0.00</span></p>
+            <!-- <p>IGV (18%) <span id="igv-amount">S/ 0.00</span></p> -->
+            <p class="total">TOTAL <span id="total-amount">S/ 0.00</span></p>
+            <p><span class="igv">incluye IGV</span></p>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

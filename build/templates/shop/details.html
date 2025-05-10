@@ -1,0 +1,167 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Inicio
+{% endblock %}
+{% load static %}
+
+
+
+{% block content %}
+<!--=============== MAIN ===============-->
+<main class="main">
+    <div class="box"></div>
+
+    <!--=============== DETAILS ===============-->
+    <section class="details section">
+
+        <div class="details__container grid">
+
+            <div class="product__images grid">
+
+                <div class="image__sector image__selectos-click" id="image-thumbnails">
+                    <!-- Aquí se generarán dinámicamente las miniaturas -->
+                </div>
+                <div class="image__selected">
+                    <div id="loader" class="loader"></div>
+                    <img src="" alt="Imagen Principal" id="MainProductImg">
+                </div>
+            </div>
+
+            <div class="product__info">
+                <!-- Nombre del producto -->
+                <h3 class="details__title">Nombre del producto</h3>
+
+                <!-- Precios -->
+                <div class="details__prices">
+                    <span class="details__price">$0.00</span>
+                    <span class="details__descount" style="display: none;">$0.00</span>
+                </div>
+
+                <!-- Selección de tallas -->
+                <div class="details__size">
+                    <h4 class="details__size-Size">Size</h4>
+                    <div class="details__size-selected">
+                        <!-- Aquí se insertarán dinámicamente las tallas -->
+                    </div>
+                </div>
+
+                <span class="meage-sizeColor"></span>
+                <!-- Botones de compra -->
+                <div class="details__addCar">
+                    <div class="details__cart info" id="addToCartButton" data-tipo="info"><span>Add to cart</span></div>
+                    <div class="details__paypal">
+                        <span>Pay with</span>
+                        <img src="#" alt="Paypal">
+                    </div>
+                </div>
+
+                <!-- Descripción del producto -->
+                <div class="details__descriptionGroup">
+                    <div class="details__description-product">
+                        <header class="productDetail__header">
+                            <h3 class="descriptio__icon-title">Product details</h3>
+                            <i class="bx bx-plus detail__icon"></i>
+                        </header>
+                        <div class="productDetail__content">
+                            <p class="detail__description">Descripción del producto aquí.</p>
+                        </div>
+                    </div>
+                    <div class="details__description-product">
+                        <header class="productDetail__header">
+                            <h3 class="descriptio__icon-title">Shipping</h3>
+                            <i class="bx bx-plus detail__icon"></i>
+                        </header>
+                        <div class="productDetail__content">
+                            <p class="detail__description">
+                                DHL is our logistics partner and our delivery takes to 5 days.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="details__description-product">
+                        <header class="productDetail__header">
+                            <h3 class="descriptio__icon-title">Exchange</h3>
+                            <i class="bx bx-plus detail__icon"></i>
+                        </header>
+                        <div class="productDetail__content">
+                            <p class="detail__description">
+                                We offer even exchanges for a new size or a new style on all full priced
+                                merchandise. Our policy lasts 15 days. If 15 days have gone by since your purchase,
+                                unfortunately, we can’t offer you a refund or exchange.
+
+                                Sale items are FINAL SALE. We will not accept returns or process exchanges or
+                                refunds on any sale purchase. This includes items listed on the sale page and any
+                                items marked FINAL SALE.
+
+                                To be eligible for a return, your item must be unused and in the same condition that
+                                you received it. It must also be in the original packaging.
+
+                                If you need to exchange it for the same item, send us an email at
+                                hello@fascegroup.com and send your item to: Calle Miguel Dasso 139, San Isidro, Lima
+                                27, PE-LMA, Perú.
+
+                                Once we receive your return, please allow up to 2-5 business days for processing and
+                                another 5-10 days for your bank to post the refund to your account.
+
+                                You will be responsible for paying for your own shipping costs for returning your
+                                item. Shipping costs are non-refundable.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </section>
+
+    <!--=============== RELATED PRODUCTS ===============-->
+    <!-- <section id="related-products" class="new section">
+        <h2 class="section__title">Related produtcs</h2>
+        <div class="new__container container">
+            <div class="swiper mySwiper">
+                <div class="swiper-wrapper new-wrapper">
+                    <div class="new__content swiper-slide">
+                        <div class="new__tag">25%</div>
+                        <img src="assets/img/blusaC.jpg" alt="" class="new__img">
+                        <span class="new__img2" style="background-image:url(assets/img/blusa2.webp)"></span>
+                        <h3 class="new__title">winkbreaker jacket</h3>
+
+                        <div class="new__prices">
+                            <span class="new__price">S/50.87</span>
+                            <span class="new__descount">S/30.45</span>
+                        </div>
+                        <div>
+                            <a href="details.html" class="button new__button"><i
+                                    class="bx bx-cart-alt new__icon"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section> -->
+
+    <section class="new section">
+        <h2 class="section__title">Related products</h2>
+        <div class="new__container container" id="related-products">
+            <div class="swiper mySwiper">
+                <div class="swiper-wrapper new-wrapper">
+                    <!-- Los productos con descuento se insertarán dinámicamente aquí -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- <section  class="new section">
+        <h2 class="section__title">Related products</h2> 
+        <div class="new__container container" id="related-products">
+            <div class="swiper mySwiper">
+                <div class="swiper-wrapper new-wrapper"></div>
+            </div>
+        </div>
+    </section> -->
+</main>
+
+{% endblock %}

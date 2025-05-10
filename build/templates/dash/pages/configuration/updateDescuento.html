@@ -1,0 +1,225 @@
+<div class="modal fade" id="productoModalDesUpdate" tabindex="-1" aria-labelledby="productoModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="productoModalLabel">Productos encontrados</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+            </div>
+            <div class="modal-body">
+                <input type="text" id="buscadorModal" class="form-control mb-3" placeholder="Filtrar productos...">
+                <div id="modalContentProduct">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<main class="content">
+    <div class="container-fluid p-0">
+
+        <div class="mb-3">
+            <h1 class="h3 d-inline align-middle">Descuento:</h1>
+            <span>...</span>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8 col-xl-9">
+                <div class="card mb-3">
+                    <div class="card-header">
+                        <h5 class="card-title mb-0 pedidoH5">Descuento en productos</h5>
+                    </div>
+                    <div class="card-body">
+                        <div id="contenedorDescuento"></div>
+                        <!-- <div class="mb-3 d-flex justify-content-between align-items-center">
+                            <label class="form-label mb-0">Código de descuento</label>
+                        </div>
+
+                        <div class="mb-3">
+                            <input type="text" class="form-control inputdescuentoUpdate input-mensajeUpdate" /> 
+                            <span class="form-text spanTextoUpdate">Los clientes deben introducir este código en el pago.</span>
+                        </div> -->
+                    </div>
+                </div>
+
+                <div class="card mb-3">
+                    <div class="card-header">
+                        <h5 class="card-title mb-0 pedidoH5">Valor del descuento</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <div class="row g-2 align-items-center">
+                                <div id="contenedorTipoDescuento"></div>
+                                <!-- <div class="col-md-8">
+                                    <select class="form-select inputdescuentoUpdate" id="tipo-descuentoUpdate">
+                                        <option value="Porcentaje">Porcentaje</option>
+                                        <option value="fijo">Monto fijo</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="input-wrapper">
+                                        <input type="text" class="form-control inputdescuentoUpdate input-valorUpdate" /> 
+                                        <span class="input-symbol" id="simbolo-descuentoUpdate">%</span>
+                                    </div>
+                                </div> -->
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label>Se aplica a</label>
+                            <input type="text" id="buscarProductoDes" class="form-control inputdescuento buscarProduct"
+                                placeholder="Agregar producto..." maxlength="1" />
+                        </div>
+                        <div class="mb-3">
+                            <div id="cartContainerDesUpdate"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card mb-3">
+                    <div class="card-header">
+                        <h5 class="card-title mb-0 pedidoH5">Se aplica a</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <div id="contenedorRequisitos"></div>
+                            <!-- <div class="mb-3">
+                                <input type="checkbox" id="check-sin-requisitos" class="requisitos" checked>
+                                <label class="form-check-label" for="check-sin-requisitos" style="cursor: pointer;">
+                                    Hasta agotar stock
+                                </label>
+                            </div>
+
+                            <div class="mb-3">
+                                <input type="checkbox" id="check-cantidad" class="requisitos">
+                                <label class="form-check-label" for="check-cantidad" style="cursor: pointer;">
+                                    Como máximo
+                                </label>
+                            </div>
+
+                            <div class="mb-3" id="inputCantidadMinima" style="display: none;">
+                                <input type="text" class="form-control inputdescuento mb-3 col-md-4" id="cantidad-minima">
+                                <span class="form-text">Se aplica solo a productos seleccionados.</span>
+                            </div> -->
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title mb-0 pedidoH5">Fechas activas</h5>
+                    </div>
+                    <div class="card-body">
+                        <div id="contenedorFechas"></div>
+                        <!-- <div class="row">
+                            <div class="col-md-6">
+                                <label>Fecha de inicio</label>
+                                <input type="date" class="form-control inputdescuento mb-3" id="fechaInput"
+                                    style="cursor: pointer;">
+                            </div>
+                            <div class="col-md-6">
+                                <label>Hora de inicio (-05)</label>
+                                <input type="time" class="form-control inputdescuento mb-3" id="horaInput"
+                                    style="cursor: pointer;">
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <input type="checkbox" id="check-finalDes" class="requisitos">
+                            <label class="form-check-label" for="check-finalDes" style="cursor: pointer;">
+                                Establecer fecha de finalización
+                            </label>
+                        </div>
+
+                        <div class="row" id="finalizacionContainer" style="display: none;">
+                            <div class="col-md-6">
+                                <label>Fecha de finalización</label>
+                                <input type="date" class="form-control inputdescuento mb-3" id="fechaInputFinish"
+                                    style="cursor: pointer;">
+                            </div>
+                            <div class="col-md-6">
+                                <label>Hora de finalización (-05)</label>
+                                <input type="time" class="form-control inputdescuento mb-3" id="horaInputFinish"
+                                    style="cursor: pointer;">
+                            </div>
+                        </div> -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 col-xl-3 ">
+                <div class="card mb-3">
+                    <div class="card-header">
+                        <h5 class="card-title mb-0 pedidoH5">Resumen del descuento</h5>
+                    </div>
+                    <!-- <div class="card-body">
+                        <h5 class="h6 card-title clienteDate">Metodo del descueto</h5>
+                        <ul class="list-unstyled">
+                            <li class="mb-1"><span data-feather="phone" class="feather-sm me-1"></span><span>Tipo</span>
+                            </li>
+                            <li class="mb-1"><span data-feather="phone" class="feather-sm me-1"></span><span>Aún no hay
+                                    código de descuento</span></li>
+                        </ul>
+                        <h5 class="h6 card-title clienteDate">Información</h5>
+                        <ul class="list-unstyled mb-0">
+                            <li class="mb-1" id="info-descuento">
+                                <span id="valor-descuento">10 % de descuento</span>
+                                <span>a productos</span>
+                            </li>
+                            <li class="mb-1" id="info-requisito-compra">
+                                <span>Sin requisito mínimo de compra</span>
+                            </li>
+                            <li class="mb-1" id="activo-desde">
+                                <span>Activo desde hoy</span>
+                            </li>
+                        </ul>
+                    </div> -->
+                    <div class="card-body">
+                        <!-- Título del método de descuento -->
+                        <h5 class="h6 card-title clienteDate">Método del descuento</h5>
+
+                        <!-- Lista del método y código -->
+                        <ul class="list-unstyled resumen-metodo">
+                            <li class="mb-1">
+                                <span data-feather="tag" class="feather-sm me-1"></span>
+                                <span>Tipo</span>
+                            </li>
+                            <li class="mb-1">
+                                <span data-feather="info" class="feather-sm me-1"></span>
+                                <span>Aún no hay código de descuento</span>
+                            </li>
+                        </ul>
+
+                        <!-- Título de la sección de información -->
+                        <h5 class="h6 card-title">Información</h5>
+
+                        <!-- Lista de información del descuento -->
+                        <ul class="list-unstyled mb-0">
+                            <li class="mb-1" id="info-descuento">
+                                <span id="valor-descuento">10 % de descuento</span>
+                                <span id="productos-descuento">a productos</span>
+                            </li>
+                            <li class="mb-1" id="info-requisito-compra">
+                                <span>Sin requisito mínimo de compra</span>
+                            </li>
+                            <li class="mb-1" id="activo-desde">
+                                <span>Activo desde hoy</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+
+                <div class="card">
+                    <button type="button" class="btn btn-success" id="updateDescuento">Actualizar descuento</button>
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </div>
+</main>

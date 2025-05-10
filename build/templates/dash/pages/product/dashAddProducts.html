@@ -1,0 +1,955 @@
+<div class="modal-content">
+    <div class="modal-header">
+        <h5 class="modal-title" id="addProductLabel">Agregar Producto</h5>
+    </div>
+    <div class="modal-body">
+        <form id="addProductForm">
+
+
+            <!-- Segunda fila -->
+            <div class="row d-flex align-items-end mt-3">
+
+
+                <div class="col-md-5">
+                    <label for="productStock" class="form-label">Número de Productos</label>
+                    <input type="number" class="form-control" id="productStock" required>
+                </div>
+
+                <div class="col-md-3">
+                    <button type="button" id="addSizeBtn" class="btn btn-primary w-100">Add Product</button>
+                </div>
+            </div>
+
+            <div id="alertContainer" class="alert alert-danger d-none mt-3" role="alert"></div>
+            <!-- Contenedor dinámico para los productos -->
+            <div class="mt-3" id="productContainer"></div>
+
+            <!-- Botón Guardar -->
+            <div class="mt-4">
+                <button type="submit" class="btn btn-primary w-100">Crear Productos</button>
+            </div>
+
+            <div id="alertDatosEnviados" class="alert alert-danger d-none mt-3" role="alert"></div>
+
+        </form>
+    </div>
+</div>
+
+
+
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const addSizeBtn = document.getElementById("addSizeBtn");
+        const productStockInput = document.getElementById("productStock");
+        const productContainer = document.getElementById("productContainer");
+        const addProductForm = document.getElementById("addProductForm");
+        // const inputs = document.querySelectorAll(".form-control");
+
+        // ✅ Capturar el evento submit del formulario
+        addProductForm.addEventListener("submit", async function (event) {
+            event.preventDefault(); // Evita la recarga de la página
+
+            const alertBox = document.getElementById("alertDatosEnviados");
+            alertBox.classList.remove("alert-success", "alert-danger", "d-none");
+            alertBox.classList.add("alert-info");
+            alertBox.innerHTML = "⏳ Enviando productos...";
+            alertBox.style.display = "block";
+
+            // ✅ Obtener productos del formulario correctamente
+            const datos = obtenerDatosProductos().productos;
+            console.log("📦 Datos a enviar:", datos);
+
+            // 🔥 Obtener el token del localStorage
+            const token = localStorage.getItem("access_token");
+
+            if (!token) {
+                console.error("❌ No hay token en localStorage.");
+                alertBox.classList.remove("alert-info");
+                alertBox.classList.add("alert-danger");
+                alertBox.innerHTML = "❌ No estás autenticado. Inicia sesión primero.";
+                return;
+            }
+
+            try {
+                const baseUrl = document.body.dataset.apiUrl;
+                const response = await fetch(`${baseUrl}/save_product/`, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": `Bearer ${token}`
+                    },
+                    body: JSON.stringify(datos),
+                });
+
+                const resultado = await response.json();
+                console.log("✅ Respuesta del servidor:", resultado);
+                
+
+                if (response.ok) {
+                    await Swal.fire({
+                        icon: "success",
+                        title: "¡Productos agregados correctamente!",
+                        showConfirmButton: false,
+                        timer: 2000
+                    });
+
+                    // Redirigir después del mensaje
+                    window.location.href = `${baseUrl}/dash-allProducts/`;
+                } else {
+                    let errorMessage = "Ocurrió un error al agregar los productos.";
+                    if (resultado.errors) {
+                        errorMessage += "<ul>" + resultado.errors.map(err => `<li>${Object.values(err).join(", ")}</li>`).join("") + "</ul>";
+                    } else if (resultado.error) {
+                        errorMessage += `<br>${resultado.error}`;
+                    }
+
+                    Swal.fire({
+                        icon: "error",
+                        title: "Error",
+                        html: errorMessage
+                    });
+                }
+            } catch (error) {
+                console.error("❌ Error en la solicitud:", error);
+                Swal.fire({
+                    icon: "error",
+                    title: "Error de conexión",
+                    text: "No se pudo conectar con el servidor."
+                });
+            }
+
+
+
+        });
+
+        // // Evento para agregar productos dinámicamente
+        if (addSizeBtn) {
+            addSizeBtn.addEventListener("click", agregarProductos);
+        }
+        const baseUrl = document.body.dataset.apiUrl;
+        async function obtenerTemporadas() {
+            try {
+                const response = await fetch(`${baseUrl}/get/seasons/`);
+                if (!response.ok) throw new Error("Error al obtener temporadas");
+
+                const data = await response.json();
+                return data.results; // Devuelve la lista de temporadas
+            } catch (error) {
+                console.error("Error cargando temporadas:", error);
+                return [];
+            }
+        }
+
+        async function obtenerCategorias() {
+            try {
+                const baseUrl = document.body.dataset.apiUrl;
+                const response = await fetch(`${baseUrl}/get/categories/`);
+                if (!response.ok) throw new Error("Error al obtener categorias");
+
+                const data = await response.json();
+                return data.results; // Devuelve la lista de temporadas
+            } catch (error) {
+                console.error("Error cargando temporadas:", error);
+                return [];
+            }
+        }
+
+        async function obtenerPromociones() {
+            try {
+                const baseUrl = document.body.dataset.apiUrl;
+                const response = await fetch(`${baseUrl}/get/promociones/`);
+                if (!response.ok) throw new Error("Error al obtener las Promociones");
+
+                const data = await response.json();
+                return data.results; // Devuelve la lista de temporadas
+            } catch (error) {
+                console.error("Error cargando temporadas:", error);
+                return [];
+            }
+        }
+
+        async function obtenerTallas() {
+            try {
+                const baseUrl = document.body.dataset.apiUrl;
+                const response = await fetch(`${baseUrl}/get/sizes/`);
+                if (!response.ok) throw new Error("Error al obtener las Promociones");
+
+                const data = await response.json();
+                return data.results; // Devuelve la lista de temporadas
+            } catch (error) {
+                console.error("Error cargando temporadas:", error);
+                return [];
+            }
+        }
+
+        // inputs.forEach(input => {
+        //     input.addEventListener("blur", function () {
+        //         if (input.value.trim() !== "") {
+        //             input.classList.add("is-valid");
+        //             input.classList.remove("is-invalid");
+        //         } else {
+        //             input.classList.add("is-invalid");
+        //             input.classList.remove("is-valid");
+        //         }
+        //     });
+        // });
+        // const tallasPorProducto = {}; 
+        const tallasPorProducto = {};
+        async function agregarProductos() {
+            const stockValue = parseInt(productStockInput.value, 10);
+            const alertContainer = document.getElementById("alertContainer");
+            // const tallasSeleccionadas = new Set();
+
+            if (!stockValue || stockValue <= 0) {
+                alertContainer.textContent = "⚠️ Ingrese un número válido de productos.";
+                alertContainer.classList.remove("d-none");
+                setTimeout(() => alertContainer.classList.add("d-none"), 3000);
+                return;
+            }
+
+            alertContainer.classList.add("d-none");
+            productContainer.innerHTML = "";
+            const temporadas = await obtenerTemporadas();//OPTENENEMOS LAS TEMPORADAS
+            const categorias = await obtenerCategorias();//OPTENENEMOS LAS CATEGORIAS
+            const promociones = await obtenerPromociones();//OPTENENEMOS LAS PROMOCIONES
+
+            for (let i = 0; i < stockValue; i++) {
+
+                tallasPorProducto[i] = new Set();
+                const productDiv = document.createElement("div");
+                productDiv.classList.add("card", "p-3", "mt-2", "position-relative");
+
+                // ################################3
+                productDiv.innerHTML = `
+                <div class="d-flex justify-content-end position-absolute top-0 end-0 m-2 gap-2">
+                    <button type="button" class="btn btn-secondary btn-sm toggle-collapse">−</button>
+                    <button type="button" class="btn-close"></button>
+                </div>
+                <h6 class="product-title" style="color: blue; font-weight: bold;">Producto ${i + 1}</h6>
+                <div class="product-content">
+                    <div class="row mt-3">
+                        <div class="col-md-6">
+                            <label for="productName" class="form-label">Nombre del Producto</label>
+                            <input type="text" class="form-control product-name" id="productName" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="productDescription" class="form-label">Descripción</label>
+                            <textarea class="form-control product-description" id="productDescription" rows="3" required></textarea>
+                        </div>
+
+                    </div>
+
+                    <!-- Número de Productos y Botón -->
+                    <div class="row d-flex align-items-end mt-3">
+                        
+                        <div class="col-md-3 d-flex flex-column">
+                            <label for="productPrice" class="form-label">Precio</label>
+                            <input type="text" class="form-control product-price" id="productPrice" required>
+                        </div>
+                        <div class="col-md-2 d-flex align-items-center gap-2">
+                            <div class="col">
+                                <p class="mb-2">Descuento</p>
+                                <label class="toggle-switch toggle-switch-success">
+                                    <input class="product-discount" type="checkbox" id="discountCheckbox">
+                                    <span class="toggle-slider round"></span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-3 d-flex flex-column promotionContainer">
+                        </div>
+                        <div class="col-md-2 d-flex flex-column">
+                            <label class="form-label">Nuevo Precio</label>
+                            <p id="newPrice" class="form-control bg-light text-center" style="height:38px; margin-bottom: 2px;">0</p>
+                        </div>
+                        <div class="col-md-2 d-flex flex-column">
+                            <label class="form-label">Cod</label>
+                            <p id="promoCode" class="form-control bg-light text-center" style="height:38px; margin-bottom: 2px;">N/A</p>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-4 seasonContainer"></div>
+                        <div class="col-md-4 categoryContainer"></div>
+                    </div>
+                    <div class="row d-flex align-items-end mt-3">
+                        <div class="mb-2">
+                            <label class="form-label">Subir Imagen</label>
+                            <input type="file" class="product-image" accept="image/*">
+                            <div class="mt-2 image-preview"></div>
+                        </div>
+                    </div>
+                    <div id="image-warning" class="text-danger mt-2"></div>
+                    <div class="row align-items-end mt-3">
+
+                        <div class="col-md-3">
+                            <label for="productSize_${i}" class="form-label">Número de Tallas o Color</label>
+                            <input type="number" class="form-control" id="productSize_${i}" required>
+                        </div>
+
+                        <div class="col-md-3">
+                            <button type="button" id="addSizeBtn_${i}" class="btn btn-primary w-100">Add Size / Color</button>
+                        </div>
+                    </div>
+                    <div id="alertContainer_${i}" class="alert alert-danger d-none mt-3" role="alert"></div>
+                    <div class="mt-3" id="sizeContainer_${i}"></div>
+                </div>`;
+
+                /*** TEMPORADAS ***/
+                const selectTemporada = document.createElement("select");
+                selectTemporada.classList.add("form-select", "form-control", "temporada-name");
+                selectTemporada.id = `seasonSelect-${i}`;
+
+                const labelTemporada = document.createElement("label");
+                labelTemporada.setAttribute("for", selectTemporada.id);
+                labelTemporada.classList.add("form-label");
+                labelTemporada.textContent = "Temporada";
+
+                temporadas.forEach(temporada => {
+                    const option = document.createElement("option");
+                    option.value = temporada.id;
+                    option.textContent = temporada.name;
+                    selectTemporada.appendChild(option);
+                });
+
+                productDiv.querySelector(".seasonContainer").appendChild(labelTemporada);
+                productDiv.querySelector(".seasonContainer").appendChild(selectTemporada);
+
+                /*** CATEGORÍAS ***/
+                const selectCategoria = document.createElement("select");
+                selectCategoria.classList.add("form-select", "form-control", "categoria-name");
+                selectCategoria.id = `categorySelect-${i}`;
+
+                const labelCategoria = document.createElement("label");
+                labelCategoria.setAttribute("for", selectCategoria.id);
+                labelCategoria.classList.add("form-label");
+                labelCategoria.textContent = "Categoría";
+
+                categorias.forEach(categoria => {
+                    const option = document.createElement("option");
+                    option.value = categoria.id;
+                    option.textContent = categoria.name;
+                    selectCategoria.appendChild(option);
+                });
+
+                productDiv.querySelector(".categoryContainer").appendChild(labelCategoria);
+                productDiv.querySelector(".categoryContainer").appendChild(selectCategoria);
+
+                /*** PROMOCIONES ***/
+                // Crear el select de promociones (inicialmente deshabilitado)
+                const selectPromociones = document.createElement("select");
+                selectPromociones.classList.add("form-select", "form-control", "promociones-name");
+                selectPromociones.id = `promotionSelect-${i}`;
+                selectPromociones.disabled = true; // Deshabilitado por defecto
+
+                // Crear label para el select
+                const labelPromociones = document.createElement("label");
+                labelPromociones.setAttribute("for", selectPromociones.id);
+                labelPromociones.classList.add("form-label");
+                labelPromociones.textContent = "Promoción";
+
+                // Opción inicial "Sin descuento"
+                const defaultOption = document.createElement("option");
+                defaultOption.value = "null"; // Value en 0 para evitar problemas
+                defaultOption.dataset.discount = "null"; // Descuento en 0%
+                defaultOption.dataset.code = ""; // Sin código de promoción
+                defaultOption.textContent = "seleccione opción";
+                selectPromociones.appendChild(defaultOption); // Agregar al <select>
+
+                // Agregar opciones al select
+                promociones.forEach(promocion => {
+                    const option = document.createElement("option");
+                    option.value = promocion.id; // Mantener el ID como value
+                    option.dataset.discount = promocion.discount_percentage; // Guardar descuento en dataset
+                    option.dataset.code = promocion.code; // Guardar código en dataset
+                    option.textContent = promocion.description;
+                    selectPromociones.appendChild(option);
+                });
+
+                productDiv.querySelector(".promotionContainer").appendChild(labelPromociones);
+                productDiv.querySelector(".promotionContainer").appendChild(selectPromociones);
+
+                // Agregar `productDiv` al contenedor principal en el DOM
+                // document.getElementById("mainContainer").appendChild(productDiv);
+
+                // Seleccionar solo el input dentro del `productDiv`
+                const inputs = productDiv.querySelectorAll(".form-control");
+                const discountCheckbox = productDiv.querySelector("#discountCheckbox");
+                // Agregar los elementos al contenedor
+                const promotionContainer = productDiv.querySelector(".promotionContainer");
+                promotionContainer.appendChild(labelPromociones);
+                promotionContainer.appendChild(selectPromociones);
+
+                discountCheckbox.addEventListener("change", function () {
+                    selectPromociones.disabled = !this.checked; // Habilita si está marcado, deshabilita si no
+                });
+                inputs.forEach(input => {
+                    input.addEventListener("blur", function () {
+                        if (input.value.trim() !== "") {
+                            input.classList.add("is-valid");
+                            input.classList.remove("is-invalid");
+                        } else {
+                            input.classList.add("is-invalid");
+                            input.classList.remove("is-valid");
+                        }
+                    });
+                });
+
+                // Agregar evento para eliminar el producto
+                const closeButton = productDiv.querySelector(".btn-close");
+                closeButton.addEventListener("click", function () {
+                    productDiv.remove();
+                    actualizarNumeracion();
+                    actualizarStock();
+                });
+
+                // Lógica para minimizar/expandir
+                const toggleButton = productDiv.querySelector(".toggle-collapse");
+                const productContent = productDiv.querySelector(".product-content");
+
+                const productPriceInput = productDiv.querySelector("#productPrice");
+                const newPriceElement = productDiv.querySelector("#newPrice");
+                const promoCodeElement = productDiv.querySelector("#promoCode");
+
+                // Evento para cambiar el precio según el descuento seleccionado
+                selectPromociones.addEventListener("change", function () {
+                    const selectedOption = this.options[this.selectedIndex];
+                    let discountPercentage = selectedOption.dataset.discount;
+                    let promoCode = selectedOption.dataset.code; // Obtener código
+
+                    // Si el usuario selecciona la opción "seleccione", mostrar "seleccione" en el nuevo precio
+                    if (discountPercentage === "null") {
+                        newPriceElement.textContent = "seleccione opción";
+                    } else {
+                        discountPercentage = parseFloat(discountPercentage) || 0;
+                        const originalPrice = parseFloat(productPriceInput.value) || 0;
+                        const discountedPrice = originalPrice - (originalPrice * (discountPercentage / 100));
+                        newPriceElement.textContent = discountedPrice.toFixed(2);
+                    }
+
+                    // Si el código de promoción es null, undefined o vacío, mostrar "No hay código"
+                    promoCodeElement.textContent = (promoCode && promoCode !== "null" && promoCode.trim() !== "") ? promoCode : "No tiene código";
+                });
+
+
+
+                toggleButton.addEventListener("click", function () {
+                    if (productContent.style.display === "none") {
+                        productContent.style.display = "block";
+                        toggleButton.textContent = "−";
+                    } else {
+                        productContent.style.display = "none";
+                        toggleButton.textContent = "+";
+                    }
+                });
+
+                // Agregar evento para el botón "Add Size"
+                const addSizeBtn = productDiv.querySelector(`#addSizeBtn_${i}`);
+                addSizeBtn.addEventListener("click", function () {
+                    agregarTallas(i, tallasPorProducto[i]);
+                });
+
+                productContainer.appendChild(productDiv);
+
+
+                //Evento de previsualización de imágenes
+                const fileInput = productDiv.querySelector(".product-image");
+                const previewContainer = productDiv.querySelector(".image-preview");
+                const warningMessage = document.getElementById("image-warning");
+
+
+                fileInput.addEventListener("change", function () {
+                    if (!fileInput.files.length) return;
+
+                    let currentFiles = Array.from(fileInput.files);
+                    let existingImages = previewContainer.querySelectorAll("img").length;
+
+                    // Si ya hay imágenes en el contenedor, añadir solo las que faltan hasta 6
+                    if (existingImages + currentFiles.length > 6) {
+                        warningMessage.textContent = "Solo puedes subir hasta 6 imágenes.";
+                        setTimeout(() => warningMessage.textContent = "", 3000); // Ocultar mensaje después de 3 segundos
+                        currentFiles = currentFiles.slice(0, 6 - existingImages);
+                    }
+
+                    currentFiles.forEach(file => {
+                        const reader = new FileReader();
+                        reader.onload = function (e) {
+                            const imageWrapper = document.createElement("div");
+                            imageWrapper.classList.add("position-relative", "m-1");
+                            imageWrapper.style.display = "inline-block";
+
+                            const img = document.createElement("img");
+                            img.src = e.target.result;
+                            img.classList.add("img-thumbnail");
+                            img.style.width = "100px";
+                            img.style.height = "100px";
+
+                            const closeButton = document.createElement("button");
+                            closeButton.innerHTML = "&times;";
+                            closeButton.classList.add("btn", "btn-danger", "btn-sm", "position-absolute");
+                            closeButton.style.top = "5px";
+                            closeButton.style.right = "5px";
+
+                            closeButton.addEventListener("click", function () {
+                                imageWrapper.remove();
+                                actualizarInputArchivos(file);
+                            });
+
+                            imageWrapper.appendChild(img);
+                            imageWrapper.appendChild(closeButton);
+                            previewContainer.appendChild(imageWrapper);
+                        };
+                        reader.readAsDataURL(file);
+                    });
+
+                    fileInput.value = "";
+                });
+
+
+
+                // const fileInput = document.querySelector(".product-image");
+                // const previewContainer = document.querySelector(".image-preview");
+                // const warningMessage = document.getElementById("image-warning");
+                // const uploadedImages = [];
+
+                // fileInput.addEventListener("change", function () {
+                //     if (!fileInput.files.length) return;
+
+                //     let currentFiles = Array.from(fileInput.files);
+                //     let existingImages = previewContainer.querySelectorAll("img").length;
+
+                //     if (existingImages + currentFiles.length > 6) {
+                //         warningMessage.textContent = "Solo puedes subir hasta 6 imágenes.";
+                //         setTimeout(() => (warningMessage.textContent = ""), 3000);
+                //         currentFiles = currentFiles.slice(0, 6 - existingImages);
+                //     }
+
+                //     currentFiles.forEach((file) => {
+                //         const reader = new FileReader();
+                //         reader.onload = function (e) {
+                //             const imageWrapper = document.createElement("div");
+                //             imageWrapper.classList.add("position-relative", "m-1");
+                //             imageWrapper.style.display = "inline-block";
+
+                //             const img = document.createElement("img");
+                //             img.src = e.target.result;
+                //             img.classList.add("img-thumbnail");
+                //             img.style.width = "100px";
+                //             img.style.height = "100px";
+
+                //             uploadedImages.push(e.target.result);
+
+                //             const closeButton = document.createElement("button");
+                //             closeButton.innerHTML = "&times;";
+                //             closeButton.classList.add("btn", "btn-danger", "btn-sm", "position-absolute");
+                //             closeButton.style.top = "5px";
+                //             closeButton.style.right = "5px";
+
+                //             closeButton.addEventListener("click", function () {
+                //                 imageWrapper.remove();
+                //                 const index = uploadedImages.indexOf(e.target.result);
+                //                 if (index !== -1) uploadedImages.splice(index, 1);
+                //             });
+
+                //             imageWrapper.appendChild(img);
+                //             imageWrapper.appendChild(closeButton);
+                //             previewContainer.appendChild(imageWrapper);
+                //         };
+                //         reader.readAsDataURL(file);
+                //     });
+
+                //     fileInput.value = "";
+                // });
+
+
+                // const fileInput = document.querySelector(".product-image");
+                // const previewContainer = document.querySelector(".image-preview");
+                // const warningMessage = document.getElementById("image-warning");
+                // const uploadedImages = []; // Aquí ahora guardaremos los archivos en lugar de Base64
+
+                // fileInput.addEventListener("change", function () {
+                //     if (!fileInput.files.length) return;
+
+                //     let currentFiles = Array.from(fileInput.files);
+                //     let existingImages = previewContainer.querySelectorAll("img").length;
+
+                //     if (existingImages + currentFiles.length > 6) {
+                //         warningMessage.textContent = "Solo puedes subir hasta 6 imágenes.";
+                //         setTimeout(() => (warningMessage.textContent = ""), 3000);
+                //         currentFiles = currentFiles.slice(0, 6 - existingImages);
+                //     }
+
+                //     currentFiles.forEach((file) => {
+                //         const reader = new FileReader();
+                //         reader.onload = function (e) {
+                //             const imageWrapper = document.createElement("div");
+                //             imageWrapper.classList.add("position-relative", "m-1");
+                //             imageWrapper.style.display = "inline-block";
+
+                //             const img = document.createElement("img");
+                //             img.src = e.target.result;
+                //             img.classList.add("img-thumbnail");
+                //             img.style.width = "100px";
+                //             img.style.height = "100px";
+
+                //             uploadedImages.push(file); // Guardamos el archivo real en lugar de Base64
+
+                //             const closeButton = document.createElement("button");
+                //             closeButton.innerHTML = "&times;";
+                //             closeButton.classList.add("btn", "btn-danger", "btn-sm", "position-absolute");
+                //             closeButton.style.top = "5px";
+                //             closeButton.style.right = "5px";
+
+                //             closeButton.addEventListener("click", function () {
+                //                 imageWrapper.remove();
+                //                 const index = uploadedImages.indexOf(file);
+                //                 if (index !== -1) uploadedImages.splice(index, 1);
+                //             });
+
+                //             imageWrapper.appendChild(img);
+                //             imageWrapper.appendChild(closeButton);
+                //             previewContainer.appendChild(imageWrapper);
+                //         };
+                //         reader.readAsDataURL(file); // Esto solo es para la vista previa, pero ya no lo enviamos en Base64
+                //     });
+
+                //     fileInput.value = "";
+                // });
+
+
+                function actualizarInputArchivos(fileToRemove) {
+                    const dt = new DataTransfer();
+                    Array.from(fileInput.files)
+                        .filter(file => file !== fileToRemove)
+                        .forEach(file => dt.items.add(file));
+
+                    fileInput.files = dt.files;
+                }
+
+                // Función para eliminar imágenes del input de archivos
+                function actualizarInputArchivos(fileToRemove) {
+                    const dt = new DataTransfer();
+                    Array.from(fileInput.files)
+                        .filter(file => file !== fileToRemove) // Filtrar para excluir la imagen eliminada
+                        .forEach(file => dt.items.add(file)); // Volver a añadir las imágenes restantes
+
+                    fileInput.files = dt.files; // Actualizar el input de archivos
+                }
+            }
+        }
+
+        async function agregarTallas(index, tallasSeleccionadas) {
+            const stockInput = document.getElementById(`productSize_${index}`);
+            //const stockProducto = document.getElementById(`stockProducts_${index}`) // Obtener stock del producto principal
+            const stockValue = parseInt(stockInput.value, 10);
+            const alertContainer = document.getElementById(`alertContainer_${index}`);
+            const sizeContainer = document.getElementById(`sizeContainer_${index}`);
+
+            if (!stockValue || stockValue <= 0) {
+                alertContainer.textContent = "⚠️ Ingrese un número válido de productos.";
+                alertContainer.classList.remove("d-none");
+                setTimeout(() => alertContainer.classList.add("d-none"), 3000);
+                return;
+            }
+
+            alertContainer.classList.add("d-none");
+            sizeContainer.innerHTML = "";
+            const tallas = await obtenerTallas();
+            console.log(tallas);
+
+            //let stockDisponible = stockProducto; // Stock total disponible a repartir
+
+            for (let j = 0; j < stockValue; j++) {
+                const productDiv = document.createElement("div");
+                productDiv.classList.add("border", "p-3", "mt-2", "rounded", "position-relative");
+
+                productDiv.innerHTML = `
+            <div class="d-flex justify-content-end position-absolute top-0 end-0 m-2 gap-2">
+                <button type="button" class="btn btn-secondary btn-sm toggle-collapse">−</button>
+                <button type="button" class="btn-close"></button>
+            </div>
+            <h6 class="tallas" style="color: #73252f; font-weight: bold;">Size / Color ${j + 1}</h6>
+            <div class="size-content">       
+                <div class="form-group row">
+                    <label class="col-sm-1 col-form-label">Selecciona:</label>
+
+                    <div class="col-sm-2">
+                        <div class="form-check form-check-success">
+                            <label class="form-check-label option-container" style="border: 2px solid #ccc; border-radius: 3px; padding: 5px; cursor: pointer;">
+                                <input type="radio" class="form-check-input select-option" name="option_${index}_${j}" value="talla">
+                                Talla
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-2">
+                        <div class="form-check form-check-success">
+                            <label class="form-check-label option-container" style="border: 2px solid #ccc; border-radius: 3px; padding: 5px; cursor: pointer;">
+                                <input type="radio" class="form-check-input select-option" name="option_${index}_${j}" value="color">
+                                Color
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3 d-flex flex-column sizesContainer"></div>
+
+                    <div class="col-md-3 d-flex align-items-center gap-2">
+                        <label for="colorPicker_${index}_${j}" class="form-label">Color</label>
+                        <input type="color" class="form-control form-control-color colorPicker" id="colorPicker_${index}_${j}" value="#fff" style="width: 50px; height: 38px;" disabled>
+                        <span class="border px-3 py-1 rounded colorLabel" style="background-color: #fff;">#FFF</span>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-1 col-form-label">Stock</label>
+                        <div class="col-sm-5">
+                            <input type="number" class="form-control stock" id="stockTalla_${index}_${j}" min="0">
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        `;
+
+
+
+                // PARA EL STOCK INCREMEMTABLE:
+                // Crear input para el stock de la talla
+                // const stockTallaInput = document.createElement("input");
+                // stockTallaInput.type = "number";
+                // stockTallaInput.classList.add("form-control", "stock");
+                // stockTallaInput.id = `stockTalla_${index}_${j}`;
+                // stockTallaInput.value = Math.floor(stockDisponible / stockValue);
+                // stockTallaInput.min = 0;
+
+                // // Agregar event listener
+                // stockTallaInput.addEventListener("input", () => actualizarStockProducto(index));
+
+                // // Insertar el input en el div correspondiente
+                // productDiv.querySelector(".col-sm-5").appendChild(stockTallaInput);
+
+                const selectTallas = document.createElement("select");
+                selectTallas.classList.add("form-select", "talla-name");
+                selectTallas.id = `sizesSelect-${index}-${j}`;
+                selectTallas.disabled = true;
+
+                // Agregar opciones de tallas dinámicamente
+                tallas.forEach(talla => {
+                    const option = document.createElement("option");
+                    option.value = talla.id;
+                    option.textContent = talla.cNombreTalla;
+                    selectTallas.appendChild(option);
+                });
+
+                const sizesContainer = productDiv.querySelector(".sizesContainer");
+                const labelTalla = document.createElement("label");
+                labelTalla.setAttribute("for", selectTallas.id);
+                labelTalla.classList.add("form-label");
+                labelTalla.textContent = "Tallas";
+
+                sizesContainer.appendChild(labelTalla);
+                sizesContainer.appendChild(selectTallas);
+
+                // Evento para manejar el cambio de talla
+                selectTallas.addEventListener("change", function () {
+                    if (productDiv.dataset.selectedTalla) {
+                        tallasSeleccionadas.delete(productDiv.dataset.selectedTalla);
+                    }
+
+                    tallasSeleccionadas.add(this.value);
+                    productDiv.dataset.selectedTalla = this.value;
+
+                    // Llamar a la función pasando el índice del producto
+                    actualizarSelectsDeTallas(index);
+                });
+
+                function actualizarSelectsDeTallas(index) {
+                    const selectedValues = new Set([...tallasPorProducto[index]]);
+
+                    // Seleccionamos solo los selects del producto actual
+                    const selectsEnProducto = document.querySelectorAll(`#sizeContainer_${index} .talla-name`);
+
+                    selectsEnProducto.forEach(select => {
+                        Array.from(select.options).forEach(option => {
+                            if (selectedValues.has(option.value) && option.value !== select.value) {
+                                option.disabled = true;
+                            } else {
+                                option.disabled = false;
+                            }
+                        });
+                    });
+                }
+
+                const closeButton = productDiv.querySelector(".btn-close");
+                closeButton.addEventListener("click", function () {
+                    if (productDiv.dataset.selectedTalla) {
+                        tallasSeleccionadas.delete(productDiv.dataset.selectedTalla);
+                    }
+                    productDiv.remove();
+                    actualizarNumeracionTalla(index);
+                    actualizarSelectsDeTallas();
+                });
+
+                const toggleButton = productDiv.querySelector(".toggle-collapse");
+                const productContent = productDiv.querySelector(".size-content");
+
+                toggleButton.addEventListener("click", function () {
+                    if (productContent.style.display === "none") {
+                        productContent.style.display = "block";
+                        toggleButton.textContent = "−";
+                    } else {
+                        productContent.style.display = "none";
+                        toggleButton.textContent = "+";
+                    }
+                });
+
+                const radioButtons = productDiv.querySelectorAll(".select-option");
+                const optionContainers = productDiv.querySelectorAll(".option-container");
+                const colorPicker = productDiv.querySelector(".colorPicker");
+                const colorLabel = productDiv.querySelector(".colorLabel");
+
+                radioButtons.forEach((radio, idx) => {
+                    radio.addEventListener("change", function () {
+                        // Si ya hay una selección previa, no permitir cambios
+                        if (this.closest(".form-group").dataset.selectedOption) {
+                            return;
+                        }
+
+                        // Guardar que ya se ha seleccionado una opción
+                        this.closest(".form-group").dataset.selectedOption = this.value;
+
+                        // Restablecer estilos de todos los contenedores
+                        optionContainers.forEach(container => {
+                            container.style.border = "2px solid #ccc";
+                            container.style.backgroundColor = "transparent";
+                        });
+
+                        // Aplicar estilos a la opción seleccionada
+                        optionContainers[idx].style.border = "2px solid green";
+                        optionContainers[idx].style.backgroundColor = "#c8e6c9";
+
+                        // Deshabilitar los radio buttons después de la selección
+                        radioButtons.forEach(btn => btn.disabled = true);
+
+                        // Habilitar/deshabilitar los elementos según la selección
+                        if (this.value === "talla") {
+                            selectTallas.disabled = false;
+                            colorPicker.disabled = true;
+                        } else if (this.value === "color") {
+                            selectTallas.disabled = true;
+                            colorPicker.disabled = false;
+                        }
+                    });
+                });
+
+                colorPicker.addEventListener("input", function () {
+                    const selectedColor = this.value;
+                    colorLabel.style.backgroundColor = selectedColor;
+                    colorLabel.textContent = selectedColor.toUpperCase();
+                });
+
+                sizeContainer.appendChild(productDiv);
+            }
+        }
+
+        function actualizarNumeracionTalla(index) {
+            const productos = document.querySelectorAll(`#productContainer_${index} .border .tallas`);
+            productos.forEach((producto, j) => {
+                producto.textContent = `Size / Color ${j + 1}`;
+            });
+        }
+
+
+        function actualizarNumeracion() {
+            const productos = document.querySelectorAll("#productContainer .card h6");
+            productos.forEach((producto, index) => {
+                producto.textContent = `Producto ${index + 1}`;
+            });
+        }
+
+        function actualizarStock() {
+            const productosRestantes = document.querySelectorAll("#productContainer .card").length;
+            productStockInput.value = productosRestantes > 0 ? productosRestantes : "";
+        }
+
+
+        // ✅ Función para obtener datos y generar el JSON
+        function obtenerDatosProductos() {
+            const productos = [];
+
+            document.querySelectorAll(".card.p-3.mt-2.position-relative").forEach((container, index) => {
+                const nombre = container.querySelector(".product-name")?.value?.trim() || "";
+                const descripcion = container.querySelector(".product-description")?.value?.trim() || "";
+                const rawValue = container.querySelector(".product-price")?.value;
+                const precio = parseFloat(parseFloat(rawValue).toFixed(2)) || 0;
+                const temporada = parseInt(container.querySelector(".temporada-name")?.value) || null;
+                const categoria = parseInt(container.querySelector(".categoria-name")?.value) || null;
+                const promocion = container.querySelector(".promociones-name")?.value?.trim() || "";
+
+                const imagenes = Array.from(container.querySelectorAll(".image-preview img")).map(img => ({
+                    url: img.src
+                }));
+
+                const promociones_producto = promocion && promocion !== "null"
+                    ? promocion.split(',').map(id => parseInt(id.trim())).filter(id => !isNaN(id))
+                    : [];
+
+                // Capturar combinaciones de talla y color con stock
+                const talla_color = [];
+                container.querySelectorAll(".size-content").forEach((sizeContainer) => {
+                    const tipoSeleccionado = sizeContainer.querySelector("input[name^='option_']:checked");
+                    if (!tipoSeleccionado) return;
+
+                    const tipo = tipoSeleccionado.value;
+                    const stock = parseInt(sizeContainer.querySelector(".stock")?.value) || 0;
+                    if (stock <= 0) return;
+
+                    if (tipo === "talla") {
+                        const selectTalla = sizeContainer.querySelector(".talla-name");
+                        const tallaId = parseInt(selectTalla?.value) || null;
+                        const tallaNombre = selectTalla?.options[selectTalla.selectedIndex]?.textContent.trim() || "";
+
+                        if (tallaId) {
+                            talla_color.push({
+                                tipo: "talla",
+                                tallaId,
+                                tallaNombre,
+                                stock
+                            });
+                        }
+                    } else if (tipo === "color") {
+                        const color = sizeContainer.querySelector(".colorPicker")?.value;
+                        if (color) talla_color.push({ tipo: "color", color, stock });
+                    }
+                });
+
+                // Separar tallas y colores
+                const tallas = talla_color.filter(item => item.tipo === "talla").map(({ tallaId, stock }) => ({ talla: tallaId, stock }));
+                const colores = talla_color.filter(item => item.tipo === "color").map(({ color, stock }) => ({ color, stock }));
+
+                // Calcular stock total sumando los stocks de tallas y colores
+                const stockProducto = talla_color.reduce((total, item) => total + item.stock, 0);
+
+                // Crear objeto final del producto, asegurando que siempre haya `tallas` y `colores`
+                productos.push({
+                    id: index + 1,
+                    name: nombre,
+                    description: descripcion,
+                    price: precio,
+                    stock: stockProducto, // Stock total calculado
+                    tallas: tallas,  // Siempre presente, vacío si no hay datos
+                    colores: colores, // Siempre presente, vacío si no hay datos
+                    category: categoria,
+                    season: temporada,
+                    imagenes: imagenes,
+                    promotions: promociones_producto
+                });
+            });
+
+            return { productos };
+        }
+
+
+    });
+
+
+
+</script>

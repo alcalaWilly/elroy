@@ -1,0 +1,121 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Inicio
+{% endblock %}
+{% load static %}
+
+
+
+{% block content %}
+
+<div class="menuFilterOrder" id="menuFilterterOrder">
+    <ul class="menuOrder">
+        <li class="menuLi">
+            <a class="menuA order-link" href="#" data-C="name" data-order="asc">Alphabetically, A-Z</a>
+        </li>
+        <li class="menuLi">
+            <a class="menuA order-link" href="#" data-sortby="name" data-order="desc">Alphabetically, Z-A</a>
+        </li>
+        <li class="menuLi">
+            <a class="menuA order-link" href="#" data-sortby="price" data-order="asc">Price, low to high</a>
+        </li>
+        <li class="menuLi">
+            <a class="menuA order-link" href="#" data-sortby="price" data-order="desc">Price, high to low</a>
+        </li>
+        <li class="menuLi">
+            <a class="menuA order-link" href="#" data-new="true">All new</a>
+        </li>
+        <li class="menuLi">
+            <a class="menuA order-link" href="#" data-promotions="true">Discounts</a>
+        </li>
+    </ul>
+    <div class="closeDiv">
+        <img src="{% static 'img/right-arrow.svg' %}" class="closeArrow" alt="" id="arrowOrder">
+    </div>
+</div>
+
+<div class="content-body">
+    <div class="box"></div>
+    <div class="box2">
+        <div class="filterMenu" id="toggleButton">
+            <div class="filter__menu">
+                <h2>Filter</h2>
+                <img src="{% static 'img/filter.svg' %}" alt="" class="listFilterIcon">
+            </div>
+        </div>
+        <div class="bordet"></div>
+        <div class="filterOrder" id="toggleSortBy">
+            <div class="filter__menu">
+                <h2 class="Sort">Sort by</h2>
+                <img src="{% static 'img/arroeUp.svg' %}" alt="" class="listSortBy">
+            </div>
+        </div>
+    </div>
+    <div class="main-wrapper" id="mainContent">
+        <aside class="menu__nav" id="filterAside">
+            <div class="shop__container">
+                <div class="filter__content grid">
+                    <ul class="list-filter">
+                        <!-- Sección de Season -->
+                        <li class="list__item-filter list__item--click">
+                            <div class="list__button-filter list__button-filter--click">
+                                <a href="#" class="nav__linkFilter">Season</a>
+                                <img src="{% static 'img/arroeUp.svg' %}" alt="" class="list__arrow">
+                            </div>
+                            <ul class="list__show">
+                                <!-- Aquí se agregarán dinámicamente las estaciones -->
+                            </ul>
+                        </li>
+
+                        <!-- Sección de Product Type -->
+                        <li class="list__item-filter list__item--click">
+                            <div class="list__button-filter list__button-filter--click">
+                                <a href="#" class="nav__linkFilter">Product Type</a>
+                                <img src="{% static 'img/arroeUp.svg' %}" alt="" class="list__arrow">
+                            </div>
+                            <ul class="list__show">
+                                <!-- Aquí se agregarán dinámicamente los tipos de productos -->
+                            </ul>
+                        </li>
+                        <li class="list__item-filter list__item--click">
+                            <div class="list__button-filter list__button-filter--click">
+                                <a href="#" class="nav__linkFilter">Price</a>
+                                <img src="{% static 'img/arroeUp.svg' %}" alt="" class="list__arrow">
+                            </div>
+                            <ul class="list__show">
+                                <div class="price-filter">
+                                    <div class="slider-container">
+                                        <input type="range" id="minPrice" min="0" max="360" step="1" value="0">
+                                        <input type="range" id="maxPrice" min="0" max="360" step="1" value="360">
+                                    </div>
+                                    <div class="list__inside">
+                                        <div class="price">
+                                            <span>S/</span>
+                                            <input type="number" id="minPriceInput" min="0" max="360" step="1"
+                                                value="0">
+                                        </div>
+                                        <span> - </span>
+                                        <div class="price">
+                                            <span>S/</span>
+                                            <input type="number" id="maxPriceInput" min="0" max="360" step="1"
+                                                value="360">
+                                        </div>
+                                    </div>
+                                </div>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </aside>
+
+        <main class="mainShop">
+            <div class="Memories_wrappert">
+
+            </div>
+        </main>
+    </div>
+</div>
+
+{% endblock %}
