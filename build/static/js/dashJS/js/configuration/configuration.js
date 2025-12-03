@@ -4,20 +4,33 @@
 
 //     });
 // });
-
 function modalUpdateSeason(seasonId, title) {
     const modal = new bootstrap.Modal(document.getElementById("exampleModalUpdate"));
     document.getElementById("exampleModalLabel").textContent = title;
+
+    // Guardar el ID de la temporada actual
+    window.currentSeasonId = seasonId;
 
     // Limpiar campos antes de cargar datos
     document.querySelector(".season-nameUpdate").value = "";
     document.querySelector(".season-descriptionUpdate").value = "";
 
-    //Si es edición, obtener datos y llenar el modal
+    // Obtener token
+    const token = getToken();
+
     if (seasonId) {
         const baseUrl = document.body.dataset.apiUrl;
-        fetch(`${baseUrl}/season/${seasonId}/`)
-            .then(response => response.json())
+        fetch(`${baseUrl}/season/${seasonId}/`, {
+            method: "GET",
+            headers: {
+                "Authorization": `Bearer ${token}`,
+                "Content-Type": "application/json"
+            }
+        })
+            .then(response => {
+                if (!response.ok) throw new Error("No se pudo obtener la temporada.");
+                return response.json();
+            })
             .then(data => {
                 document.querySelector(".season-nameUpdate").value = data.name || "";
                 document.querySelector(".season-descriptionUpdate").value = data.description || "";
@@ -27,6 +40,7 @@ function modalUpdateSeason(seasonId, title) {
 
     modal.show();
 }
+
 
 function loadSeason() {
     const baseUrl = document.body.dataset.apiUrl;
@@ -67,6 +81,62 @@ function loadSeason() {
                     modalUpdateSeason(seasonId, "Editar Season");
                 });
             });
+
+
+            document.getElementById("update-season").addEventListener("click", async function () {
+                const seasonId = window.currentSeasonId;
+                const name = document.querySelector(".season-nameUpdate").value.trim();
+                const description = document.querySelector(".season-descriptionUpdate").value.trim();
+                const token = getToken();
+
+                console.log("EL ID A ACTUALIOZAR EEEEES:",seasonId)
+                if (!name || !description) {
+                    alert("⚠️ Por favor, completa todos los campos.");
+                    return;
+                }
+
+                try {
+                    const baseUrl = document.body.dataset.apiUrl;
+                    const response = await fetch(`${baseUrl}/get/seasonAdd/${seasonId}/`, {
+                        method: "PUT",
+                        headers: {
+                            "Authorization": `Bearer ${token}`,
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({ name, description })
+                    });
+
+                    if (response.ok) {
+                        await Swal.fire({
+                            icon: "success",
+                            title: "✅ Temporada actualizada exitosamente.",
+                            showConfirmButton: false,
+                            timer: 2000
+                        });
+
+                        // Cierra el modal
+                        const modal = bootstrap.Modal.getInstance(document.getElementById("exampleModalUpdate"));
+                        if (modal) modal.hide();
+                        
+                        // Limpia campos (opcional)
+                        document.querySelector(".season-nameUpdate").value = "";
+                        document.querySelector(".season-descriptionUpdate").value = "";
+
+                        // Refresca la tabla si existe
+                        loadSeason();
+
+                    } else {
+                        const errorData = await response.json();
+                        console.error("❌ Error en servidor:", errorData);
+                        alert("❌ Error al actualizar la temporada.");
+                    }
+
+                } catch (error) {
+                    console.error("❌ Error al enviar solicitud:", error);
+                    alert("❌ No se pudo actualizar.");
+                }
+            });
+
 
 
         })
@@ -1576,6 +1646,9 @@ function addSizeModal() {
                     showConfirmButton: false,
                     timer: 2000
                 });
+
+                // 🔹 Limpiar el input después del mensaje de éxito
+                document.querySelector(".size-name").value = "";
 
                 let modalInstance = bootstrap.Modal.getInstance(document.getElementById("modalSize"));
                 if (modalInstance) modalInstance.hide();

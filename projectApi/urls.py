@@ -72,6 +72,9 @@ urlpatterns = [
     path('dash-allProducts/', views.dashProduct, name='allProducts'),
     path('dash-allUsers/', views.dashUser, name='allUsers'),
     path('dash-addProducts/', views.dashAddProducts, name='dashAddProducts'),
+    # 
+    path('dash-addProduct/', views.dashAddProduct, name='dashAddProduct'),
+    # 
     path('dash-configuration/', views.dashConfiguration, name='dashConfiguration'),
 
     path('dash-promocion/', views.dashPromocion, name='dashPromocion'),

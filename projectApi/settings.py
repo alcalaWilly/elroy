@@ -15,6 +15,8 @@ import os
 import environ
 from datetime import timedelta
 
+import pymysql
+pymysql.install_as_MySQLdb()
 
 env = environ.Env()
 environ.Env.read_env()

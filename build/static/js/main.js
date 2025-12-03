@@ -258,7 +258,7 @@ async function loadSwiperSlides() {
       const product = await productData.json();
 
       // 🔹 Obtener la primera imagen disponible
-      
+
       const productImage = product.product.imagenes.length > 0
         ? `${baseUrl}${product.product.imagenes[0].cRutaImagen}`
         : "assets/img/default-image.png"; // Imagen por defecto si no hay
@@ -1932,12 +1932,11 @@ document.getElementById("crearCuenta").addEventListener("click", async function 
     const data = await response.json();
 
     if (response.ok) {
-      Swal.fire({
-        icon: 'success',
-        title: '¡Éxito!',
-        text: `Bienvenido ${userData.first_name}. Ahora puedes Iniciar Sesión, tu cuenta fue creada con éxito.`,
-        confirmButtonText: 'Aceptar'
-      });
+      swal(
+        "¡Éxito!",
+        `Bienvenido ${userData.first_name}. Ahora puedes Iniciar Sesión, tu cuenta fue creada con éxito.`,
+        "success"
+      );
     } else {
       document.getElementById("error-message").innerText = data.error;
       document.getElementById("error-message").style.display = "block";

@@ -453,6 +453,13 @@ def dashAddProducts(request):
         return render(request, "dash/pages/product/dashAddProducts.html")
     return render(request, "dash/baseHome.html", {"content_template": "dash/pages/product/dashAddProducts.html"})
 
+# LO NUEVOOOOOOOOOOOOOOOOOOO PARA AGREGAR PRODUCTOS
+@user_passes_test(is_staff_or_superuser, login_url='/login/')
+def dashAddProduct(request):
+    if request.headers.get('X-Requested-With') == 'XMLHttpRequest':  # Detecta Fetch API
+        return render(request, "dash/pages/product/dashAddProduct.html")
+    return render(request, "dash/baseHome.html", {"content_template": "dash/pages/product/dashAddProduct.html"})
+
 
 @user_passes_test(is_staff_or_superuser, login_url='/login/')
 def dashConfiguration(request):

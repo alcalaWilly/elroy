@@ -1,0 +1,222 @@
+<main class="content">
+    <div class="container-fluid p-0">
+
+        <div class="mb-3">
+            <h1 class="h3 d-inline align-middle">Agregar producto</h1>
+        </div>
+
+        <div class="row">
+            <div class="col-md-8 col-xl-9">
+                <div class="card mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <label>Nombre</label>
+                            <input type="text" id="buscarLetraProducto" class="form-control buscarProduct"
+                                placeholder="Nombre del producto...">
+                        </div>
+                        <div class="card-body">
+                            <label>Descripción</label>
+                            <textarea name="" id="" class="form-control buscarProduct" rows="2"
+                                placeholder="Descripción del producto..."></textarea>
+                        </div>
+                        <div class="card-body">
+                            <label>Imagen</label>
+                            <div class="row d-flex align-items-end mt-3">
+                                <div class="col-12 mb-2"> <!-- Agrega col-12 para asegurar el ancho -->
+                                    <input type="file" class="product-image" accept="image/*">
+                                    <div class="mt-2 image-preview"></div>
+                                </div>
+                            </div>
+                            <div id="image-warning" class="text-danger mt-2"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h5 class="card-title mb-0 pedidoH5">Precios</h5>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row align-items-center">
+                                <div class="col-md-4">
+                                    <label class="form-label">Precio</label>
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control buscarProduct precioInput"
+                                            placeholder="0.00">
+                                        <span class="input-group-text">PEN</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h5 class="card-title mb-0 pedidoH5">Temporada y Categoría</h5>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row mt-3">
+                                <!-- Temporada (izquierda) -->
+                                <div class="col-md-6 seasonContainer">
+                                    <label class="form-label">Temporada</label>
+                                    <select class="form-select seasonSelect">
+                                        <option value="">Selecciona temporada</option>
+                                    </select>
+                                </div>
+
+                                <!-- Categoría (derecha) -->
+                                <div class="col-md-6 categoryContainer">
+                                    <label class="form-label">Categoría</label>
+                                    <select class="form-select categorySelect">
+                                        <option value="">Selecciona categoría</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Selector -->
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h5 class="card-title mb-0">Selecciona talla o color</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <label class="form-label">Selecciona</label>
+                            <div class="metodo">
+                                <div class="metodo_codigo active"><span>Talla</span></div>
+                                <div class="metodo_automatico"><span>Color</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tarjeta de Tallas -->
+                <div id="cardTallas" class="card">
+                    <div class="card-header">
+                        <h5 class="card-title mb-0 pedidoH5">Tallas</h5>
+                    </div>
+                    <div class="card-body">
+                        <!-- Tabla de Tallas -->
+                        <div class="d-flex justify-content-end mb-2">
+                            <button id="btnAgregarTalla" type="button" class="btn btn-primary btn-sm">
+                                + Agregar Talla
+                            </button>
+                        </div>
+
+                        <table class="table table-bordered align-middle mb-3">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Talla</th>
+                                    <th>Precio</th>
+                                    <th>Cantidad</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbodyTallas">
+                                <!-- Filas se agregan con JS -->
+                            </tbody>
+                        </table>
+                        <span id="totalInventarioTalla">Total de inventario en la tienda: 0 disponible</span>
+                    </div>
+                </div>
+
+                <!-- Tarjeta de Colores -->
+                <div id="cardColores" class="card d-none">
+                    <div class="card-header">
+                        <h5 class="card-title mb-0 pedidoH5">Colores</h5>
+                    </div>
+                    <div class="card-body">
+                        <!-- Botón para agregar color -->
+                        <div class="mb-3 text-end">
+                            <button id="btnAgregarColor" type="button" class="btn btn-primary btn-sm">+ Agregar
+                                color</button>
+                        </div>
+                        <!-- Tabla de Colores -->
+                        <table class="table table-bordered align-middle mb-3">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Color</th>
+                                    <th>Precio</th>
+                                    <th>Cantidad</th>
+                                </tr>
+                            </thead>
+                            <tbody class="tbodyColores">
+                            </tbody>
+                        </table>
+                        <span id="totalInventarioColor">Total de inventario en la tienda: 0 disponible</span>
+                    </div>
+                </div>
+
+
+            </div>
+
+            <div class="col-md-4 col-xl-3 ">
+                <div class="card mb-3">
+
+                    <div class="card-header clienteEdit">
+                        <h5 class="card-title mb-0">Cliente</h5>
+                        <i class="typcn typcn-plus fs-4 text-success ms-2" title="Agregar cliente"
+                            style="cursor: pointer;" onclick="window.location.href='/dash-addClient/'"></i>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-body">
+                            <label>Buscar cliente</label>
+                            <input type="text" id="clientePedido" class="form-control buscarProduct"
+                                placeholder="Buscar cliente..." list="listaClientes">
+
+                            <datalist id="listaClientes"></datalist>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div id="detalleClientePedido"></div>
+                        <!-- <div class="card-body">
+                            <h5 class="h6 card-title clienteDate">Información del contacto</h5>
+                            <ul class="list-unstyled mb-0">
+                                <li class="mb-1 d-flex align-items-center">
+                                    <span data-feather="mail" class="feather-sm me-2 text-primary"></span>
+                                    <a href="mailto:cliente@example.com" id="cliente-email" class="fw-bold text-blue">
+                                        Cargando...
+                                    </a>
+                                </li>
+                                <li class="mb-1"><span data-feather="phone" class="feather-sm me-1"></span> <span
+                                        id="cliente-telefono">Cargando...</span></li>
+    
+                                <li class="mb-1"><span data-feather="user" class="feather-sm me-1"></span> <span
+                                        id="cliente-nombre">Cargando...</span></li>
+                            </ul>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="h6 card-title clienteDate">Dirección predeterminada</h5>
+                            <ul class="list-unstyled mb-0">
+                                <li class="mb-1"><span data-feather="id-card" class="feather-sm me-1"></span> <span
+                                        id="cliente-ruc">Cargando...</span></li>
+                                <li class="mb-1"><span data-feather="map-pin" class="feather-sm me-1"></span> <span
+                                        id="cliente-direccion">Cargando...</span></li>
+                                <li class="mb-1"><span data-feather="map" class="feather-sm me-1"></span> <span
+                                        id="cliente-ciudad">Cargando...</span></li>
+                                <li class="mb-1"><span data-feather="globe" class="feather-sm me-1"></span> <span
+                                        id="cliente-region">Cargando...</span></li>
+                                <li class="mb-1"><span data-feather="mail" class="feather-sm me-1"></span> <span
+                                        id="cliente-codPostal">Cargando...</span></li>
+                            </ul>
+                        </div> -->
+                    </div>
+                    <input type="hidden" id="cliente-id-hidden" />
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</main>

@@ -41,6 +41,7 @@
 
 <script>
     document.addEventListener("DOMContentLoaded", function () {
+        
         const addSizeBtn = document.getElementById("addSizeBtn");
         const productStockInput = document.getElementById("productStock");
         const productContainer = document.getElementById("productContainer");
@@ -85,32 +86,38 @@
 
                 const resultado = await response.json();
                 console.log("✅ Respuesta del servidor:", resultado);
-                
 
-                if (response.ok) {
-                    await Swal.fire({
-                        icon: "success",
-                        title: "¡Productos agregados correctamente!",
-                        showConfirmButton: false,
-                        timer: 2000
-                    });
 
-                    // Redirigir después del mensaje
-                    window.location.href = `${baseUrl}/dash-allProducts/`;
-                } else {
-                    let errorMessage = "Ocurrió un error al agregar los productos.";
-                    if (resultado.errors) {
-                        errorMessage += "<ul>" + resultado.errors.map(err => `<li>${Object.values(err).join(", ")}</li>`).join("") + "</ul>";
-                    } else if (resultado.error) {
-                        errorMessage += `<br>${resultado.error}`;
-                    }
+                // if (response.ok) {
+                //     await Swal.fire({
+                //         icon: "success",
+                //         title: "¡Productos agregados correctamente!",
+                //         showConfirmButton: false,
+                //         timer: 2000
+                //     });
 
-                    Swal.fire({
-                        icon: "error",
-                        title: "Error",
-                        html: errorMessage
-                    });
-                }
+                //     // Redirigir o recargar según corresponda
+                //     if (window.location.pathname === "/dash-allProducts/") {
+                //         location.reload();
+                //     } else {
+                //         location.href = `${baseUrl}/dash-allProducts/`;
+                //     }
+                // }
+                // else {
+                //     let errorMessage = "Ocurrió un error al agregar los productos.";
+                //     if (resultado.errors) {
+                //         errorMessage += "<ul>" + resultado.errors.map(err => `<li>${Object.values(err).join(", ")}</li>`).join("") + "</ul>";
+                //     } else if (resultado.error) {
+                //         errorMessage += `<br>${resultado.error}`;
+                //     }
+
+                //     Swal.fire({
+                //         icon: "error",
+                //         title: "Error",
+                //         html: errorMessage
+                //     });
+                // }
+            
             } catch (error) {
                 console.error("❌ Error en la solicitud:", error);
                 Swal.fire({
@@ -124,10 +131,11 @@
 
         });
 
-        // // Evento para agregar productos dinámicamente
+
         if (addSizeBtn) {
             addSizeBtn.addEventListener("click", agregarProductos);
         }
+
         const baseUrl = document.body.dataset.apiUrl;
         async function obtenerTemporadas() {
             try {
@@ -635,6 +643,7 @@
 
                     fileInput.files = dt.files; // Actualizar el input de archivos
                 }
+            
             }
         }
 
@@ -946,7 +955,6 @@
 
             return { productos };
         }
-
 
     });
 
